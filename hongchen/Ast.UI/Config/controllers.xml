@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+
+  <!--UI层需引用BLL-->
+  <object type="Ast.UI.Controllers.MainController, Ast.UI" singleton="false" >
+    <property name="postservice"  ref="postservice" />
+    <property name="noticeservice"  ref="noticeservice" />
+  </object>
+
+  <!--LoginController-->
+  <object type="Ast.UI.Controllers.LoginController, Ast.UI" singleton="false" >
+    <property name="userservice"  ref="userservice" />
+    <property name="logservice"  ref="logservice" />
+  </object>
+  <object name="userservice" type="Ast.Bll.OTAUsersService, Ast.Bll" singleton="false" >
+  </object>
+  <object name="logservice" type="Ast.Bll.OTALoginLogService, Ast.Bll" singleton="false" >
+  </object>
+  <!--LoginController-->
+
+  <!--UsersController-->
+  <object type="Ast.UI.Controllers.UsersController, Ast.UI" singleton="false" >
+    <property name="userservice"  ref="userservice" />
+    <property name="departmentservice"  ref="departmentservice" />
+    <property name="postservice"  ref="postservice" />
+  </object>
+  <object name="departmentservice" type="Ast.Bll.OTADepartmentService, Ast.Bll" singleton="false" >
+  </object>
+  <object name="postservice" type="Ast.Bll.OTAPostService, Ast.Bll" singleton="false" >
+  </object>
+  <!--UsersController-->
+
+  <!--SysController-->
+  <object type="Ast.UI.Controllers.SysController, Ast.UI" singleton="false" >
+    <property name="userservice"  ref="userservice" />
+    <property name="postservice"  ref="postservice" />
+    <property name="menuservice"  ref="menuservice" />
+    <property name="funcservice"  ref="funcservice" />
+  </object>
+  <object name="menuservice" type="Ast.Bll.OTAMenuService, Ast.Bll" singleton="false" >
+  </object>
+  <object name="funcservice" type="Ast.Bll.OTAFuncMenusService, Ast.Bll" singleton="false" >
+  </object>
+  <!--SysController-->
+
+  <!--CommonController-->
+  <object type="Ast.UI.Controllers.CommonController, Ast.UI" singleton="false" >
+    <property name="groupservice"  ref="groupservice" />
+    <property name="msgservice"  ref="msgservice" />
+    <property name="mailservice"  ref="mailservice" />
+  </object>
+  <object name="mailservice" type="Ast.Bll.OTAMailListService, Ast.Bll" singleton="false" >
+  </object>
+  <!--CommonController-->
+
+  <!--PersonController-->
+  <object type="Ast.UI.Controllers.PersonController, Ast.UI" singleton="false" >
+    <property name="noticeservice"  ref="noticeservice" />
+    <property name="noticetypeservice"  ref="noticetypeservice" />
+  </object>
+  <object name="noticeservice" type="Ast.Bll.SysNoticeListService, Ast.Bll" singleton="false" >
+  </object>
+  <object name="noticetypeservice" type="Ast.Bll.SysNoticeTypeService, Ast.Bll" singleton="false" >
+  </object>
+  <!--PersonController-->
+</objects>

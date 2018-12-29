@@ -1,0 +1,385 @@
+﻿@using Ast.Models;
+@{
+    ViewBag.Title = "_Layout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var member = ViewBag.member as MemberList;
+}
+<html class="no-js bg" lang="zh-cmn-Hans">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#3a3f51" />
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <title>友人C - 相逢的人会再相逢</title>
+    <link rel='stylesheet' id='style-css' href='~/Content/static/css/style.css' type='text/css' />
+    <link rel="stylesheet" href="~/Content/static/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/static/css/handsome.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/static/css/jquery.fancybox.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/static/css/zenburn.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/static/css/font.css" type="text/css" />
+</head>
+<body id="body" style="margin-top:5px;">
+    <div id="alllayout" class="app app-aside-fixed container app-header-fixed ">
+        <aside id="aside" class="app-aside hidden-xs bg-light">
+            <div class="aside-wrap">
+                <div class="navi-wrap">
+                    @if (member != null)
+                    {
+                        <div class="clearfix hidden-xs text-center hide  show" id="aside-user">
+                            <div class="dropdown wrapper">
+                                <div ui-nav>
+                                    <a href="#">
+                                        <span class="thumb-lg w-auto-folded avatar m-t-sm">
+                                            <img src="~/Content/static/picture/414908425.jpeg" class="img-full">
+                                        </span>
+                                    </a>
+                                </div>
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
+                                    <span class="clear">
+                                        <span class="block m-t-sm">
+                                            <strong class="font-bold text-lt" style="font-size:16px;">@member.Name</strong>
+                                        </span>
+                                        <span class="text-muted text-xs block">一个普通的人而已</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="line dk hidden-folded"></div>
+                        </div>
+                    }
+                    <nav ui-nav class="navi clearfix">
+                        <ul class="nav">
+                            <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                                <span>导航</span>
+                            </li>
+                            <li>
+                                <a href="/PersonalCenter" class="auto">
+                                    <i class="iconfont icon-zhuye icon text-md"></i>
+                                    <span>我的主页</span>
+                                </a>
+                            </li>
+                            <li> <a target="_self" href="/PersonalCenter/profile" class="auto"><i class="iconfont icon-fork icon text-md"></i><span>我的资料</span></a></li>
+                            <li> <a target="_self" href="/PersonalCenter/myPost" class="auto"><i class="fontello fontello-picture icon text-md"></i><span>我的发帖</span></a></li>
+                            <li> <a target="_self" href="/PersonalCenter/myPhoto" class="auto"><i class="fontello fontello-emo-tongue icon text-md"></i><span>我的相册</span></a></li>
+                            <li class="line dk"></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </aside>
+        <div id="content" class="app-content">
+            <div id="loadingbar" class="butterbar hide">
+                <span class="bar"></span>
+            </div>
+            <a class="off-screen-toggle hide"></a>
+            <main class="app-content-body " style="background-color:#fff">
+                <div class="hbox hbox-auto-xs hbox-auto-sm">
+                    @RenderBody()
+                    <aside class="asideBar col w-md bg-white-only b-l bg-auto no-border-xs" role="complementary">
+                        <div id="sidebar">
+                            <section id="tabs-4" class=" widget_tabs clear">
+                                <div class="nav-tabs-alt no-js-hide">
+                                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                                        <li class="active" role="presentation"> <a href="#widget-tabs-4-hots" role="tab" aria-controls="widget-tabs-4-hots" aria-expanded="true" data-toggle="tab"> <i class="glyphicon glyphicon-fire text-md text-muted wrapper-sm" aria-hidden="true"></i> <span class="sr-only">热门文章</span> </a></li>
+                                        <li role="presentation"> <a href="#widget-tabs-4-comments" role="tab" aria-controls="widget-tabs-4-comments" aria-expanded="false" data-toggle="tab"> <i class="glyphicon glyphicon-comment text-md text-muted wrapper-sm" aria-hidden="true"></i> <span class="sr-only">最新评论</span> </a></li>
+                                        <li role="presentation"> <a href="#widget-tabs-4-random" role="tab" aria-controls="widget-tabs-4-random" aria-expanded="false" data-toggle="tab"> <i class="glyphicon glyphicon-transfer text-md text-muted wrapper-sm" aria-hidden="true"></i> <span class="sr-only">随机文章</span> </a></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content">
+                                    <div id="widget-tabs-4-hots" class="tab-pane  fade in wrapper-md active" role="tabpanel">
+                                        <h3 class="widget-title m-t-none text-md">热门文章</h3>
+                                        <ul class="list-group no-bg no-borders pull-in m-b-none">
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/489/" class="pull-left thumb-sm m-r"><img style="height: 40px!important;width: 40px!important;" src="~/Content/static/picture/32d0170bf8a04d988fe891ffe513bd43.gif" class="img-circle"></a>
+                                                <div class="clear">
+                                                    <h4 class="h5 l-h"> <a href="https://www.ihewro.com/archives/489/" title="handsome —— 一如少年般模样"> handsome —— 一如少年般模样 </a></h4>
+                                                    <small class="text-muted post-head-icon">
+                                                        <span class="meta-views">
+                                                            <i class="iconfont icon-comments-o" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">1090</span>
+                                                        </span>
+                                                        <span class="meta-date m-l-sm">
+                                                            <i class="fontello fontello-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">713273</span>
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/534/" class="pull-left thumb-sm m-r"><img style="height: 40px!important;width: 40px!important;" src="~/Content/static/picture/1891e2a5e97444e99e427f2616166238.gif" class="img-circle"></a>
+                                                <div class="clear">
+                                                    <h4 class="h5 l-h"> <a href="https://www.ihewro.com/archives/534/" title="小米手环2已经绑定手机忘记账号解决方法"> 小米手环2已经绑定手机忘记账号解决方法 </a></h4>
+                                                    <small class="text-muted post-head-icon">
+                                                        <span class="meta-views">
+                                                            <i class="iconfont icon-comments-o" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">15</span>
+                                                        </span>
+                                                        <span class="meta-date m-l-sm">
+                                                            <i class="fontello fontello-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">34204</span>
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/634/" class="pull-left thumb-sm m-r"><img style="height: 40px!important;width: 40px!important;" src="~/Content/static/picture/649a9937f34d411f8d682923df11fef9.gif" class="img-circle"></a>
+                                                <div class="clear">
+                                                    <h4 class="h5 l-h"> <a href="https://www.ihewro.com/archives/634/" title="deepin 15.4 beta 简单体验反馈"> deepin 15.4 beta 简单体验反馈 </a></h4>
+                                                    <small class="text-muted post-head-icon">
+                                                        <span class="meta-views">
+                                                            <i class="iconfont icon-comments-o" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">88</span>
+                                                        </span>
+                                                        <span class="meta-date m-l-sm">
+                                                            <i class="fontello fontello-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">32124</span>
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/378/" class="pull-left thumb-sm m-r"><img style="height: 40px!important;width: 40px!important;" src="~/Content/static/picture/d64a160b0971454b9ebe1070d7b5d6c6.gif" class="img-circle"></a>
+                                                <div class="clear">
+                                                    <h4 class="h5 l-h"> <a href="https://www.ihewro.com/archives/378/" title="Leaf — A Typecho Theme"> Leaf — A Typecho Theme </a></h4>
+                                                    <small class="text-muted post-head-icon">
+                                                        <span class="meta-views">
+                                                            <i class="iconfont icon-comments-o" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">91</span>
+                                                        </span>
+                                                        <span class="meta-date m-l-sm">
+                                                            <i class="fontello fontello-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">24457</span>
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/524/" class="pull-left thumb-sm m-r"><img style="height: 40px!important;width: 40px!important;" src="~/Content/static/picture/d3c611d63c594d4c9722a21860f38ec9.gif" class="img-circle"></a>
+                                                <div class="clear">
+                                                    <h4 class="h5 l-h"> <a href="https://www.ihewro.com/archives/524/" title=" 再见，2016"> 再见，2016 </a></h4>
+                                                    <small class="text-muted post-head-icon">
+                                                        <span class="meta-views">
+                                                            <i class="iconfont icon-comments-o" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">90</span>
+                                                        </span>
+                                                        <span class="meta-date m-l-sm">
+                                                            <i class="fontello fontello-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">19369</span>
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div id="widget-tabs-4-comments" class="tab-pane fade wrapper-md no-js-show" role="tabpanel">
+                                        <h3 class="widget-title m-t-none text-md">最新评论</h3>
+                                        <ul class="list-group no-borders pull-in auto m-b-none">
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/830/comment-page-1#comment-5379" class="pull-left thumb-sm avatar m-r">
+                                                    <img nogallery src="~/Content/static/picture/f68843c5657c41039e99e4d84123f21b.gif" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">
+                                                </a>
+                                                <a href="https://www.ihewro.com/archives/830/comment-page-1#comment-5379" class="text-muted">
+                                                </a>
+                                                <div class="clear">
+                                                    <div class="text-ellipsis">
+                                                        <a href="https://www.ihewro.com/archives/830/comment-page-1#comment-5379" title="L"> L </a>
+                                                    </div>
+                                                    <small class="text-muted">
+                                                        <span>
+                                                            该评论仅登录用户及评论双方可见
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/830/comment-page-1#comment-5378" class="pull-left thumb-sm avatar m-r">
+                                                    <img nogallery src="~/Content/static/picture/84378c16c8624751ad8443b70313ea0f.gif" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">
+                                                </a>
+                                                <a href="https://www.ihewro.com/archives/830/comment-page-1#comment-5378" class="text-muted">
+                                                </a>
+                                                <div class="clear">
+                                                    <div class="text-ellipsis">
+                                                        <a href="https://www.ihewro.com/archives/830/comment-page-1#comment-5378" title="九日"> 九日 </a>
+                                                    </div>
+                                                    <small class="text-muted">
+                                                        <span>
+                                                            朋友圈，没人点赞评论，空间，点赞了没人评论，也没多少人会关心你...
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/489/comment-page-1#comment-5377" class="pull-left thumb-sm avatar m-r">
+                                                    <img nogallery src="~/Content/static/picture/041be7ed84b849a6b396ea9d8c11b68f.gif" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">
+                                                </a>
+                                                <a href="https://www.ihewro.com/archives/489/comment-page-1#comment-5377" class="text-muted">
+                                                </a>
+                                                <div class="clear">
+                                                    <div class="text-ellipsis">
+                                                        <a href="https://www.ihewro.com/archives/489/comment-page-1#comment-5377" title="liucncn"> liucncn </a>
+                                                    </div>
+                                                    <small class="text-muted">
+                                                        <span>
+                                                            试试会不会刷新
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/830/comment-page-1#comment-5375" class="pull-left thumb-sm avatar m-r">
+                                                    <img nogallery src="~/Content/static/picture/36cd4527ddb44d2690cec0c78c9bab09.gif" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">
+                                                </a>
+                                                <a href="https://www.ihewro.com/archives/830/comment-page-1#comment-5375" class="text-muted">
+                                                </a>
+                                                <div class="clear">
+                                                    <div class="text-ellipsis">
+                                                        <a href="https://www.ihewro.com/archives/830/comment-page-1#comment-5375" title="anonymous"> anonymous </a>
+                                                    </div>
+                                                    <small class="text-muted">
+                                                        <span>
+                                                            是的，有时候不是不想写，而是不敢写，写了又怕被别人看到，最后那...
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/830/comment-page-1#comment-5373" class="pull-left thumb-sm avatar m-r">
+                                                    <img nogallery src="~/Content/static/picture/84378c16c8624751ad8443b70313ea0f.gif" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">
+                                                </a>
+                                                <a href="https://www.ihewro.com/archives/830/comment-page-1#comment-5373" class="text-muted">
+                                                </a>
+                                                <div class="clear">
+                                                    <div class="text-ellipsis">
+                                                        <a href="https://www.ihewro.com/archives/830/comment-page-1#comment-5373" title="九日"> 九日 </a>
+                                                    </div>
+                                                    <small class="text-muted">
+                                                        <span>
+                                                            现在很少博主像你这样认真写博文记录生活、心情了，加油。
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div id="widget-tabs-4-random" class="tab-pane fade wrapper-md no-js-show" role="tabpanel">
+                                        <h3 class="widget-title m-t-none text-md">随机文章</h3>
+                                        <ul class="list-group no-bg no-borders pull-in">
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/469/" class="pull-left thumb-sm m-r"><img style="height: 40px!important;width: 40px!important;" src="~/Content/static/picture/32d0170bf8a04d988fe891ffe513bd43.gif" class="img-circle"></a>
+                                                <div class="clear">
+                                                    <h4 class="h5 l-h"> <a href="https://www.ihewro.com/archives/469/" title="30分钟git 快速入门"> 30分钟git 快速入门 </a></h4>
+                                                    <small class="text-muted post-head-icon">
+                                                        <span class="meta-views">
+                                                            <i class="iconfont icon-comments-o" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">17</span>
+                                                        </span>
+                                                        <span class="meta-date m-l-sm">
+                                                            <i class="fontello fontello-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">3540</span>
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/350/" class="pull-left thumb-sm m-r"><img style="height: 40px!important;width: 40px!important;" src="~/Content/static/picture/1891e2a5e97444e99e427f2616166238.gif" class="img-circle"></a>
+                                                <div class="clear">
+                                                    <h4 class="h5 l-h"> <a href="https://www.ihewro.com/archives/350/" title="PHP随机输出一句话"> PHP随机输出一句话 </a></h4>
+                                                    <small class="text-muted post-head-icon">
+                                                        <span class="meta-views">
+                                                            <i class="iconfont icon-comments-o" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">7</span>
+                                                        </span>
+                                                        <span class="meta-date m-l-sm">
+                                                            <i class="fontello fontello-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">3329</span>
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/295/" class="pull-left thumb-sm m-r"><img style="height: 40px!important;width: 40px!important;" src="~/Content/static/picture/649a9937f34d411f8d682923df11fef9.gif" class="img-circle"></a>
+                                                <div class="clear">
+                                                    <h4 class="h5 l-h"> <a href="https://www.ihewro.com/archives/295/" title="《马男波杰克》—有泪点的喜剧片"> 《马男波杰克》—有泪点的喜剧片 </a></h4>
+                                                    <small class="text-muted post-head-icon">
+                                                        <span class="meta-views">
+                                                            <i class="iconfont icon-comments-o" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">11</span>
+                                                        </span>
+                                                        <span class="meta-date m-l-sm">
+                                                            <i class="fontello fontello-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">4417</span>
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/524/" class="pull-left thumb-sm m-r"><img style="height: 40px!important;width: 40px!important;" src="~/Content/static/picture/d64a160b0971454b9ebe1070d7b5d6c6.gif" class="img-circle"></a>
+                                                <div class="clear">
+                                                    <h4 class="h5 l-h"> <a href="https://www.ihewro.com/archives/524/" title=" 再见，2016"> 再见，2016 </a></h4>
+                                                    <small class="text-muted post-head-icon">
+                                                        <span class="meta-views">
+                                                            <i class="iconfont icon-comments-o" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">90</span>
+                                                        </span>
+                                                        <span class="meta-date m-l-sm">
+                                                            <i class="fontello fontello-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">19369</span>
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <a href="https://www.ihewro.com/archives/24/" class="pull-left thumb-sm m-r"><img style="height: 40px!important;width: 40px!important;" src="~/Content/static/picture/d3c611d63c594d4c9722a21860f38ec9.gif" class="img-circle"></a>
+                                                <div class="clear">
+                                                    <h4 class="h5 l-h"> <a href="https://www.ihewro.com/archives/24/" title="童年的端午"> 童年的端午 </a></h4>
+                                                    <small class="text-muted post-head-icon">
+                                                        <span class="meta-views">
+                                                            <i class="iconfont icon-comments-o" aria-hidden="true"></i> <span class="sr-only">评论数：</span> <span class="meta-value">1</span>
+                                                        </span>
+                                                        <span class="meta-date m-l-sm">
+                                                            <i class="fontello fontello-eye" aria-hidden="true"></i> <span class="sr-only">浏览次数:</span> <span class="meta-value">1388</span>
+                                                        </span>
+                                                    </small>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                            <section id="categories-2" class="widget widget_categories wrapper-md clear">
+                                <h3 class="widget-title m-t-none text-md">博客信息</h3>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <i class="glyphicon glyphicon-file text-muted"></i> <span class="badge
+           pull-right">156</span>文章数目
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="glyphicon glyphicon-comment text-muted"></i> <span class="badge
+           pull-right">4650</span>评论数目
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="glyphicon glyphicon-equalizer text-muted"></i> <span class="badge
+           pull-right">2年69天</span>运行天数
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="glyphicon glyphicon-refresh text-muted"></i> <span class="badge
+           pull-right">4 天前</span>最后更新
+                                    </li>
+                                </ul>
+                            </section>
+                            <section id="tag_cloud-2" class="widget widget_tag_cloud wrapper-md clear">
+                                <h3 class="widget-title m-t-none text-md">标签云</h3>
+                                <div class="tags l-h-2x">
+                                    <a href="https://www.ihewro.com/tag/%E6%97%B6%E5%80%99/" class="label bg-info" title="该标签下有 63 篇文章" data-toggle="tooltip">时候</a>
+                                    <a href="https://www.ihewro.com/tag/%E5%96%9C%E6%AC%A2/" class="label bg-info" title="该标签下有 37 篇文章" data-toggle="tooltip">喜欢</a>
+                                    <a href="https://www.ihewro.com/tag/%E7%94%9F%E6%B4%BB/" class="label bg-info" title="该标签下有 36 篇文章" data-toggle="tooltip">生活</a>
+                                    <a href="https://www.ihewro.com/tag/%E4%BB%A3%E7%A0%81/" class="label bg-info" title="该标签下有 36 篇文章" data-toggle="tooltip">代码</a>
+                                </div>
+                            </section>
+                        </div>
+                    </aside>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="~/Content/static/js/jquery.min.js"></script>
+    <script src="~/Content/static/js/bootstrap.min.js"></script>
+    <script src="~/Content/static/js/lazyload.min.js"></script>
+    <script src="~/Content/layuiadmin/layui/layui.js"></script>
+    <script src="~/Content/lib/Toastr/toastr.min.js"></script>
+    <script src="~/Content/js/adder.main.js"></script>
+    <script>
+        $("img").lazyload({
+            effect: "fadeIn"
+        }); $(".lazy").lazyload({
+            effect: "fadeIn"
+        });
+    </script>
+    @RenderSection("js", required: false)
+</body>
+</html>
+
+

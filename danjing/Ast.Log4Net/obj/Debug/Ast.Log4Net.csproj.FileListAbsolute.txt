@@ -1,0 +1,12 @@
+D:\Project\丹井\Ast.Log4Net\bin\Debug\Ast.Log4Net.dll.config
+D:\Project\丹井\Ast.Log4Net\bin\Debug\Ast.Log4Net.dll
+D:\Project\丹井\Ast.Log4Net\bin\Debug\Ast.Log4Net.pdb
+D:\Project\丹井\Ast.Log4Net\bin\Debug\log4net.dll
+D:\Project\丹井\Ast.Log4Net\bin\Debug\StackExchange.Redis.dll
+D:\Project\丹井\Ast.Log4Net\bin\Debug\log4net.xml
+D:\Project\丹井\Ast.Log4Net\bin\Debug\StackExchange.Redis.xml
+D:\Project\丹井\Ast.Log4Net\obj\Debug\Ast.Log4Net.csprojAssemblyReference.cache
+D:\Project\丹井\Ast.Log4Net\obj\Debug\Ast.Log4Net.csproj.CoreCompileInputs.cache
+D:\Project\丹井\Ast.Log4Net\obj\Debug\Ast.Log4Net.csproj.CopyComplete
+D:\Project\丹井\Ast.Log4Net\obj\Debug\Ast.Log4Net.dll
+D:\Project\丹井\Ast.Log4Net\obj\Debug\Ast.Log4Net.pdb

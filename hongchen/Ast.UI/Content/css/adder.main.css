@@ -1,0 +1,60 @@
+﻿.layui-btn-black {
+    background-color: #333;
+}
+
+.layui-btn-red {
+    background-color: #FF4949;
+}
+
+.layui-btn-redx {
+    background-color: #ed3f14;
+}
+
+.layui-btn-purple {
+    background: -webkit-linear-gradient(left top, #a870f5, #1E9FFF); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(bottom right, #a870f5, #1E9FFF); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(bottom right, #a870f5, #1E9FFF); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to bottom right, #a870f5, #1E9FFF); /* 标准的语法（必须放在最后） */
+}
+.layui-btn-nom {
+    background: -webkit-linear-gradient(left top, #1E9FFF, #7f3715); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(bottom right, #1E9FFF, #7f3715); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(bottom right, #1E9FFF, #7f3715); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to bottom right, #1E9FFF, #7f3715); /* 标准的语法（必须放在最后） */
+}
+
+.layui-btn-lan {
+    background-color: #03c0fb;
+}
+
+.layui-btn-suc {
+    background-color: #67C23A;
+}
+
+.layui-elem-black {
+    border-left: 5px solid #333;
+}
+
+.layui-elem-normal {
+    border-left: 4px solid #03c0fb;
+}
+
+.layui-elem-info {
+    border-left: 4px solid #67C23A;
+}
+
+.layui-elem-purple {
+    border-left: 4px solid #a870f5;
+}
+
+.layui-elem-red {
+    border-left: 4px solid #FF4949;
+}
+
+.layui-elem-primary {
+    border-left: 4px solid #01AAED;
+}
+
+.layui-elem-suc {
+    border-left: 4px solid #5FB878;
+}

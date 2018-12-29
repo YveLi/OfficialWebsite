@@ -1,0 +1,266 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/lib/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" />
+<div class="layui-fluid layui-anim layui-anim-upbit layui-col-md12">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md3">
+            <div class="layui-card ">
+                <div class="layui-card-body">
+                    <blockquote class="layui-elem-quote layui-elem-black">
+                        部门
+                        <div class="layui-inline" style="float:right">
+                            <a class="layui-btn layui-btn-xs layui-btn-purple" onclick="openPost('职位维护')"><i class="layui-icon layui-icon-edit"></i>职位维护</a>
+                            <a class="layui-btn layui-btn-xs layui-btn-black" onclick="openCity(0,'新增部门')"><i class="layui-icon layui-icon-add-1"></i></a>
+                            <a class="layui-btn layui-btn-xs layui-btn-normal" onclick="update('编辑部门')"><i class="layui-icon layui-icon-edit"></i></a>
+                            <a class="layui-btn layui-btn-xs layui-btn-red" onclick="delpost()"><i class="layui-icon layui-icon-delete"></i></a>
+                        </div>
+                    </blockquote>
+                    <div class="layui-form">
+                        <div class="layui-form-item">
+                            <ul id="tree" class="ztree"></ul>
+                            <input id="nodeid" type="hidden" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md9">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <blockquote class="layui-elem-quote layui-elem-black">
+                        <a id="pointname" class="layui-btn layui-btn-xs layui-btn-purple"></a>
+                        <a class="layui-btn layui-btn-xs layui-btn-black" onclick="openDialog(0,'新增员工')"><i class="layui-icon layui-icon-add-1"></i>新增员工</a>
+                        <button class="layui-btn layui-btn-xs layui-btn-red" onclick="batchDel()"><i class="layui-icon layui-icon-delete"></i>批量删除</button>
+                    </blockquote>
+                    <div class=" layui-form">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <input type="text" id="query" class="layui-input query" />
+                            </div>
+                            <div class="layui-inline">
+                                <button class="layui-btn" type="button" onclick="init()"><i class="layui-icon layui-icon-search"></i>查询</button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <table id="datagrid" lay-filter="datagrid"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js{
+    <script src="~/Content/lib/zTree/js/jquery.ztree.all.js"></script>
+    <script type="text/html" id="bar">
+        <a class="layui-btn layui-btn-xs layui-btn-normal" title="编辑" onclick="openDialog({{ d.Id }},'编辑')"><i class="layui-icon layui-icon-edit"></i></a>
+        @*<a class="layui-btn layui-btn-xs layui-btn-red" title="删除" onclick="del({{ d.Id }})"><i class="layui-icon layui-icon-delete"></i></a>*@
+    </script>
+    <script type="text/html" id="imgtpl">
+        <div class="photoimg" onclick="openimg('{{d.TopImg}}')">
+            <img src="{{d.TopImg}}" />
+        </div>
+    </script>
+    <script type="text/html" id="gendertpl">
+        {{# var status=d.Gender }}
+        {{# if (status==0){ }}
+        <span class="layui-btn layui-btn-xs layui-btn-normal" style="font-size:13px">男</span>
+        {{# } else{ }}
+        <span class="layui-btn layui-btn-xs layui-btn-red" style="font-size:13px">女</span>
+        {{# } }}
+    </script>
+    <script type="text/html" id="nametpl">
+        <a class="layui-btn layui-btn-xs layui-btn-black" style="cursor:pointer" href="javascript:;">{{d.LoginName}}</a>
+    </script>
+    <script type="text/html" id="admintpl">
+        {{# var status=d.IsAdmin }}
+        {{# if (status==0){ }}
+        <span class="layui-btn layui-btn-xs layui-btn-normal" style="font-size:13px">否</span>
+        {{# } else{ }}
+        <span class="layui-btn layui-btn-xs layui-btn-suc" style="font-size:13px">是</span>
+        {{# } }}
+    </script>
+    <script type="text/html" id="leadertpl">
+        {{# var status=d.IsLeader }}
+        {{# if (status==0){ }}
+        <span class="layui-btn layui-btn-xs layui-btn-normal" style="font-size:13px">否</span>
+        {{# } else{ }}
+        <span class="layui-btn layui-btn-xs layui-btn-suc" style="font-size:13px">是</span>
+        {{# } }}
+    </script>
+    <script type="text/html" id="deltpl">
+        {{# var status=d.IsDel }}
+        {{# if (status==0){ }}
+        <span class="layui-btn layui-btn-xs layui-btn-suc" style="font-size:13px">启用</span>
+        {{# } else{ }}
+        <span class="layui-btn layui-btn-xs layui-btn-red" style="font-size:13px">禁用</span>
+        {{# } }}
+    </script>
+    <script>
+        $(function () {
+            inittree();
+            bandpoint(0,"员工列表");
+        });
+        function init() {
+            inittree();
+            bandpoint(0,"员工列表");
+        }
+        function openimg(src) {
+            var layer = layui.layer;
+            layer.open({
+                type: 1,
+                shade: false,
+                shadeClose: true,
+                area:['400px','300px'],
+                shade: 0.2,
+                title: false, //不显示标题
+                content: "<img src=" + src + " style='width:100%;height:100%'/>"
+            });
+        }
+        //批量删除
+        function batchDel() {
+            var data = { url: "/Users/UsersDel" };
+            adder.batchDel(data);
+        }
+        function inittree() {
+            $("#tree").empty();
+            $.getJSON("/Users/GetDepartList?spread=1", {}, function (nodes) {
+                var setting = {
+                    view: {
+                        dblClickExpand: false,//双击节点时，是否自动展开父节点的标识
+                        showLine: false,//是否显示节点之间的连线
+                        selectedMulti: false //设置是否允许同时选中多个节点
+                    },
+                    check: {
+                        chkboxType: { "Y": "", "N": "" },
+                        chkStyle: "checkbox",//复选框类型
+                        enable: false //每个节点上是否显示 CheckBox
+                    },
+                    data: {
+                        simpleData: {//简单数据模式
+                            enable: true,
+                            idKey: "id",
+                            pIdKey: "pid",
+                            rootPId: null
+                        }
+                    },
+                    callback: {
+                        onClick: inittable,
+                    }
+                };
+                console.log(nodes);
+                zTreeObj = $.fn.zTree.init($("#tree"), setting, nodes);
+                zTreeObj.expandAll(true);
+            });
+        }
+
+        function inittable(event, treeId, treeNode) {
+            if (treeNode != undefined) {
+                $("#nodeid").val(treeNode.id);
+                bandpoint(treeNode.id, treeNode.name +"员工列表");
+            }
+        }
+        function bandpoint(id, name) {
+            $("#pointname").html(name);
+            var query = $("#query").val();
+            var url = "query=" + query + "&pid=" + id;
+            var cols = [[
+                  { fixed: 'left', checkbox: true, LAY_CHECKED: false }
+                , { fixed: 'left', title: '操作', templet: "#bar", width: 90 }
+                , { field: 'DepartName', title: '部门' }
+                , { field: 'PostName', title: '职位' }
+                , { field: 'LoginName', title: '账号', templet: "#nametpl" }
+                , { field: 'RealName', title: '姓名' }
+                , { field: 'TopImg', title: '头像', templet: "#imgtpl" }
+                , { field: 'Gender', title: '性别', templet: "#gendertpl" }
+                , { field: 'Mobile', title: '手机' }
+                , { field: 'IsLeader', title: '是否经理', templet: "#leadertpl" }
+                , { field: 'IsDel', title: '是否禁用', templet: "#deltpl" }
+                , { field: 'AddTime', title: '创建日期', templet: '<div>{{adder.dateformat(d.AddTime)}}</div>' }
+            ]];
+            adder.loadlist({ url: "/Users/GetUsersList?" + url, cols: cols});
+        }
+
+        function openDialog(id, title) {
+            var dialog = {
+                title: title, // 窗口名称
+                area: ['90%', '90%'], //宽高
+                url: "/Users/Info?id=" + id
+            }
+            adder.dialog(dialog);
+        }
+
+        function openCity(id, title) {
+            var dialog = {
+                title: title, // 窗口名称
+                area: ['50%', '50%'],
+                url: "/Users/DepartInfo?id=" + id
+            }
+            adder.dialog(dialog);
+        }
+
+        function update(title) {
+            var id = $("#nodeid").val();
+            if (id == "") {
+                layui.use('layer', function () {
+                    layer.open({
+                        title: '警告'
+                        , content: '请选择要修改的国家或城市名称！'
+                    });
+                });
+                return false;
+            } else {
+                var dialog = {
+                    title: title, // 窗口名称
+                    area: ['50%', '50%'], //宽高
+                    url: "/Users/DepartInfo?id=" + id
+                }
+                adder.dialog(dialog);
+            }
+        }
+        function delpost() {
+            var id = $("#nodeid").val();
+            if (id == "") {
+                layui.use('layer', function () {
+                    layer.open({
+                        title: '警告'
+                        , content: '请选择要删除的部门！'
+                    });
+                });
+                return false;
+            } else {
+                $.ajaxSetup({ async: false });
+                del({ url:"/Users/DepartDel?Id=" + id });
+
+            }
+        }
+        function del(data) {
+            layer.confirm("确认要删除？", { icon: 3, title: '提示' }, function (index) {
+                $.ajax({
+                    type: data.type === undefined ? "get" : "post",
+                    url: data.url,
+                    async: data.async === undefined ? true : false,
+                    success: function (e) {
+                        if (e == "0") {
+                            layer.msg("该节点还包含子节点，不允许删除！", { icon: 2, shade: 0.4, time: 1200 });
+                        } else {
+                            layer.msg("删除成功!", { icon: 1, shade: 0.4, time: 1200 });
+                        }
+                        inittree();
+                    }
+                });
+            });
+        };
+        function openPost(title) {
+            var dialog = {
+                title: title, // 窗口名称
+                area: ['80%', '80%'],
+                url: "/Users/Post"
+            }
+            adder.dialog(dialog);
+        }
+    </script>
+}

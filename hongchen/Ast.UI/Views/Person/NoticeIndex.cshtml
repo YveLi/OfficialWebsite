@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="layui-fluid layui-anim layui-anim-upbit layui-col-md12">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <blockquote class="layui-elem-quote layui-elem-black">
+                        <a id="pointname" class="layui-btn layui-btn-xs layui-btn-purple">通知公告</a>
+                        <a class="layui-btn layui-btn-xs layui-btn-black" onclick="openDialog(0,'新增公告')" data-power="Add"><i class="layui-icon layui-icon-add-1"></i>添加公告</a>
+                        <button class="layui-btn layui-btn-xs layui-btn-red" onclick="batchDel()" data-power="Delete"><i class="layui-icon layui-icon-delete"></i>批量删除</button>
+                        <a class="layui-btn layui-btn-xs layui-btn-normal" onclick="openFood('通知类型维护')" data-power="Add"><i class="layui-icon layui-icon-add-1"></i>通知类型维护</a>
+                    </blockquote>
+                    <div class=" layui-form">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <input type="text" id="query" class="layui-input query" />
+                            </div>
+                            <div class="layui-inline">
+                                <button class="layui-btn" type="button" onclick="init()"><i class="layui-icon layui-icon-search"></i>查询</button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <table id="datagrid" lay-filter="datagrid"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js{
+    <script type="text/html" id="bar">
+        <a class="layui-btn layui-btn-xs layui-btn-normal" title="编辑公告" onclick="openDialog({{ d.Id }},'编辑公告')"><i class="layui-icon layui-icon-edit"></i></a>
+        @*<a class="layui-btn layui-btn-xs layui-btn-red" title="删除" onclick="del({{ d.Id }})"><i class="layui-icon layui-icon-delete"></i></a>*@
+    </script>
+    <script>
+        $(function () {
+            init();
+        });
+        //批量删除
+        function batchDel() {
+            var data = { url: "/Person/NoticeDel" };
+            adder.batchDel(data);
+        }
+        function init() {
+            var query = $("#query").val();
+            var url = "query=" + query;
+            var cols = [[
+                { fixed: 'left', checkbox: true, LAY_CHECKED: false }
+                , { fixed: 'left', title: '操作', templet: "#bar", width: 120 }
+                , { field: 'Title', title: '标题' }
+                , { field: 'NoticeTypeName', title: '类型' }
+                , { field: 'PushUserName', title: '发布人' }
+                , { field: 'PushTime', title: '发布时间' }
+            ]];
+            adder.loadlist({ url: "/Person/GetNoticeList?" + url, cols: cols });
+        }
+        function openDialog(id, title) {
+            var dialog = {
+                title: title, // 窗口名称
+                area: ['50%', '80%'], //宽高
+                url: "/Person/NoticeInfo?id=" + id
+            }
+            adder.dialog(dialog);
+        }
+        function openFood(title) {
+            var dialog = {
+                title: title, // 窗口名称
+                area: ['80%', '80%'],
+                url: "/Person/NoticeType"
+            }
+            adder.dialog(dialog);
+        }
+    </script>
+}

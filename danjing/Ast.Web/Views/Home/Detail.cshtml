@@ -1,0 +1,464 @@
+﻿@using Ast.Web.Models
+@using Ast.Models
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var article = ViewBag.article as ArticleModel;
+    var commentList = ViewBag.commentList as List<ArticleCommentModel>;
+}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="theme-color" content="#3a3f51" />
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <title>星宇社区</title>
+    <link rel='stylesheet' id='style-css' href='~/Content/static/css/style.css' type='text/css' />
+    <link rel="stylesheet" href="~/Content/static/css/handsome.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/static/css/jquery.fancybox.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/static/css/zenburn.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/static/css/font.css" type="text/css" />
+</head>
+<main class="container pt-xs-6" id="pjax-content">
+    <div class="row">
+        <div class="col-md-9 no-gutter-xs">
+            <div class="article-btn-group">
+                <ul>
+                    <li>
+                        <a target="_blank" href="https://item.taobao.com/item.htm?id=565267392328" class="article-btn-danger">
+                            <i class="czs-buy"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#comment">
+                            <i class="czs-talk"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="main">
+                <article class="article " id="post-61">
+                    <div class="article-title">
+                        <a href="http://heijing.chuangzaoshi.com/archives/61">
+                            @article.Articlemd.Title
+                        </a>
+                    </div>
+                    <div class="article-meta">
+                        <span class="article-meta-time">
+                            @article.Articlemd.AddTime
+                        </span>
+                        <i class="czs-bookmark"></i>
+                        <a href="http://heijing.chuangzaoshi.com/archives/category/design/ux" rel="category tag">@article.Typemd.Name</a> <a href="http://heijing.chuangzaoshi.com/archives/category/design/graphic" rel="category tag">@article.Typemd.Name</a>
+                        <!--<i class="czs-heart"></i>
+                                            <span class="count">
+                            89
+                        </span>&nbsp;-->
+                        <i class="czs-comment"></i>
+                        <a href="http://heijing.chuangzaoshi.com/archives/61#comments" class="article-meta-comment">@article.Articlemd.CommentNum</a>                                <i class="czs-eye"></i>@article.Articlemd.ReadNum&nbsp;
+                        <!-- user edit -->
+                        <div class="article-meta-tags">
+                            <a href="http://heijing.chuangzaoshi.com/archives/tag/poster" rel="tag">article.Markmd.Name</a> <a href="http://heijing.chuangzaoshi.com/archives/tag/creativity" rel="tag">灵感创意</a>
+                        </div>
+                    </div>
+                    <!--                        <hr class="mb-6" style="border: 0;height: 1px;background: #ddd;">-->
+                    <div class="article-body">
+                        <p><img class="alignnone wp-image-81 size-full" src="static/picture/1.png" alt="" width="800" height="600" srcset="http://heijing.chuangzaoshi.com/wp-content/uploads/2017/07/1.png 800w, http://heijing.chuangzaoshi.com/wp-content/uploads/2017/07/1-300x225.png 300w, http://heijing.chuangzaoshi.com/wp-content/uploads/2017/07/1-768x576.png 768w" sizes="(max-width: 800px) 100vw, 800px" /></p>
+                        <h3>Background and Concept</h3>
+                        <div class="project-module module project-module-text text align-center">
+                            <div class="main-text">
+                                <div></div>
+                                <div>
+                                    <p>@article.Articlemd.ArticleContent</p>
+                                </div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="project-module module image project-module-image image-full project-module-image-full">
+                            <div class="js-project-lightbox-link project-module-image-inner-wrap lightbox-link hover-icon-enabled"><img class="" src="static/picture/0c1df545754829.583c52298309f.jpg" sizes="(max-width: 1400px) 100vw, 1400px" srcset="https://mir-s3-cdn-cf.behance.net/project_modules/disp/0c1df545754829.583c52298309f.jpg 600w,https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0c1df545754829.583c52298309f.jpg 1200w,https://mir-s3-cdn-cf.behance.net/project_modules/1400/0c1df545754829.583c52298309f.jpg 1400w,https://mir-s3-cdn-cf.behance.net/project_modules/fs/0c1df545754829.583c52298309f.jpg 1920w,https://mir-s3-cdn-cf.behance.net/project_modules/max_3840/0c1df545754829.583c52298309f.jpg 3840w," width="824" height="549" /></div>
+                        </div>
+                        <div class="spacer"></div>
+                    </div>
+                    <!-- advertisement -->
+                    <div class="article-advertisement">
+                    </div>
+                    <!-- copyright -->
+                    <p class="article-copyright">
+                        转载原创文章请注明，转载自:
+                        <a href="http://heijing.chuangzaoshi.com">
+                            黑镜主题
+                        </a> -
+                        <a href="http://heijing.chuangzaoshi.com/archives/61">
+                            Officeworks-Gifts-for-Imagineers
+                        </a>
+                        (http://heijing.chuangzaoshi.com/archives/61)
+                    </p>
+                    <!-- like -->
+                    <div class="article-like">
+                        <a href="javascript:;" data-action="ding" data-id="61" class="favorite ">
+                            <span class="d-block">
+                                <i class="czs-thumbs-up-l"></i>
+                            </span>
+                            <span class="count d-block">
+                                89
+                            </span>
+                        </a>
+                    </div>
+                    <!-- support -->
+                    <!-- share -->
+                    <div class="article-share">
+                        <span class="article-share-title">
+                            分享到：
+                        </span>
+                        <span class="bdsharebuttonbox d-inline-block">
+                            <a href="#" class="bds_weixin czs-weixin" data-cmd="weixin" title="分享到微信"></a>
+                            <a href="#" class="bds_tsina czs-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+                            <a href="#" class="bds_sqq czs-qq" data-cmd="sqq" title="分享到QQ"></a>
+                            <a href="#" class="bds_more czs-add" data-cmd="more"></a>
+                        </span>
+                        <script>
+                            window._bd_share_config = {
+                                "common": {
+                                    "bdSnsKey": {},
+                                    "bdText": "",
+                                    "bdMini": "1",
+                                    "bdMiniList": false,
+                                    "bdPic": "",
+                                    "bdStyle": "0"
+                                },
+                                "share": {
+                                    bdCustomStyle: themeUrl + '/assets/css/share.css'
+                                }
+                            };
+                            with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = themeUrl + '/assets/js/bdshare/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+                    </div>
+                </article>
+                <section id="post-link">
+                    <div class="md-6 post-link-previous">
+                        上一篇: <a href="http://heijing.chuangzaoshi.com/archives/59" rel="prev">Nokia-OZO-website</a>
+                    </div>
+                    <div class="md-6 post-link-next">
+                        下一篇: <a href="http://heijing.chuangzaoshi.com/archives/140" rel="next">教程丨打造像素艺术图的3D立体世界</a>
+                    </div>
+                </section>
+                <div class="related-post row-sm-up clear">
+                    <div class="col-md-4">
+                        <div class="post post-style-card transition">
+                            <a class="post-img img-response" href=" http://heijing.chuangzaoshi.com/archives/140" style="background-image: url(static/images/1-13.png)">
+                            </a>
+                            <div class="post-top">
+                                <div class="post-title mb-1">
+                                    <a href="http://heijing.chuangzaoshi.com/archives/140"> 教程丨打造像素艺术图的3D立体世界 </a>
+                                </div>
+                                <div class="post-top-meta mb-3">
+                                    <a class="post-category" href="http://heijing.chuangzaoshi.com/archives/category/feature">
+                                        教程
+                                    </a>
+                                    <span class="post-time">
+                                        2017.07.19
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <ul class="post-meta-bottom">
+                                    <li class="post-meta-author">
+                                        <a class="d-block" href="http://heijing.chuangzaoshi.com/archives/author/designer" target="_blank">
+                                            <img alt='' src='static/picture/avatar_user_1_1500356034-96x96.png' srcset='http://heijing.chuangzaoshi.com/wp-content/uploads/2017/07/avatar_user_1_1500356034-96x96.png 2x' class='avatar avatar-96 photo' height='96' width='96' />            <span class="d-inline-block">designer</span>
+                                        </a>
+                                    </li>
+                                    <li class="post-meta-view pull-right">
+                                        <i class="czs-eye"></i> 8524
+                                    </li>
+                                    <li class="post-meta-comments pull-right">
+                                        <i class="czs-comment"></i> 3
+                                    </li>
+                                    <li class="post-meta-like pull-right">
+                                        <i class="czs-heart"></i>
+                                        <span class="count">
+                                            87
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="post post-style-card transition">
+                            <a class="post-img img-response" href=" http://heijing.chuangzaoshi.com/archives/59" style="background-image: url(static/images/2.png)">
+                            </a>
+                            <div class="post-top">
+                                <div class="post-title mb-1">
+                                    <a href="http://heijing.chuangzaoshi.com/archives/59"> Nokia-OZO-website </a>
+                                </div>
+                                <div class="post-top-meta mb-3">
+                                    <a class="post-category" href="http://heijing.chuangzaoshi.com/archives/category/design/ui">
+                                        UI设计
+                                    </a>
+                                    <span class="post-time">
+                                        2017.07.18
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <ul class="post-meta-bottom">
+                                    <li class="post-meta-author">
+                                        <a class="d-block" href="http://heijing.chuangzaoshi.com/archives/author/designer" target="_blank">
+                                            <img alt='' src='static/picture/avatar_user_1_1500356034-96x96.png' srcset='http://heijing.chuangzaoshi.com/wp-content/uploads/2017/07/avatar_user_1_1500356034-96x96.png 2x' class='avatar avatar-96 photo' height='96' width='96' />            <span class="d-inline-block">designer</span>
+                                        </a>
+                                    </li>
+                                    <li class="post-meta-view pull-right">
+                                        <i class="czs-eye"></i> 6177
+                                    </li>
+                                    <li class="post-meta-comments pull-right">
+                                        <i class="czs-comment"></i> 0
+                                    </li>
+                                    <li class="post-meta-like pull-right">
+                                        <i class="czs-heart"></i>
+                                        <span class="count">
+                                            121
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="post post-style-card transition">
+                            <a class="post-img img-response" href=" http://heijing.chuangzaoshi.com/archives/57" style="background-image: url(static/images/3.png)">
+                            </a>
+                            <div class="post-top">
+                                <div class="post-title mb-1">
+                                    <a href="http://heijing.chuangzaoshi.com/archives/57"> Character-Design-early-2017 </a>
+                                </div>
+                                <div class="post-top-meta mb-3">
+                                    <a class="post-category" href="http://heijing.chuangzaoshi.com/archives/category/design/ui">
+                                        UI设计
+                                    </a>
+                                    <span class="post-time">
+                                        2017.07.18
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <ul class="post-meta-bottom">
+                                    <li class="post-meta-author">
+                                        <a class="d-block" href="http://heijing.chuangzaoshi.com/archives/author/designer" target="_blank">
+                                            <img alt='' src='static/picture/avatar_user_1_1500356034-96x96.png' srcset='http://heijing.chuangzaoshi.com/wp-content/uploads/2017/07/avatar_user_1_1500356034-96x96.png 2x' class='avatar avatar-96 photo' height='96' width='96' />            <span class="d-inline-block">designer</span>
+                                        </a>
+                                    </li>
+                                    <li class="post-meta-view pull-right">
+                                        <i class="czs-eye"></i> 4134
+                                    </li>
+                                    <li class="post-meta-comments pull-right">
+                                        <i class="czs-comment"></i> 0
+                                    </li>
+                                    <li class="post-meta-like pull-right">
+                                        <i class="czs-heart"></i>
+                                        <span class="count">
+                                            71
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="comments" id="comments">
+                    <h4 class="comments-title m-t-lg m-b" style="margin-top:0">@commentList.Count 条评论</h4><ol class="comment-list">
+                        @if (commentList.Count > 0)
+                        {
+                            foreach (var item in commentList)
+                            {
+                                <li id="@item.Commentmd.Id" class="comment-body comment-parent comment-even">
+                                    <div id="div-comment-5260" class="comment-body">
+                                        <a class="pull-left thumb-sm">
+                                            <img nogallery src="static/picture/5eaa1c06f64d41c99392c7317f8f5eb8.gif" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">
+                                        </a>
+                                        <div class="m-b m-l-xxl">
+                                            <div class="comment-meta">
+                                                <span class="comment-author vcard">
+                                                    <b class="fn"><a href="https://essayulan.wordpress.com/" target="_blank" rel="external nofollow">@item.Membermd.Name</a></b>
+                                                    @if (item.Commentmd.UserId == article.Articlemd.CreateUser)
+                                                    {<label class="label bg-dark m-l-xs">楼主</label>}
+                                                </span>
+                                                <div class="comment-metadata">
+                                                    <time class="format_time text-muted text-xs block m-t-xs" pubdate="pubdate" datetime="2018-07-04T22:41:47+08:00">@item.Commentmd.AddTime</time>
+                                                </div>
+                                            </div>
+                                            <div class="comment-content m-t-sm">
+                                                <span class="comment-author-at"><b></b></span>
+                                                <p class="my-content">@item.Commentmd.Content</p>
+                                            </div>
+                                            <div class="comment-reply m-t-sm">
+                                                <a href="https://www.ihewro.com/archives/813/comment-page-1?replyTo=5274#respond-post-813" rel="nofollow" onclick="return TypechoComment.reply('@item.Commentmd.Id', '5260');">回复</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @if (item.Childmd != null)
+                                    {
+                                        foreach (var cc in item.Childmd)
+                                        {
+                                            <div class="comment-children list-unstyled m-l-xxl">
+                                                <ol class="comment-list">
+                                                    <li id="comment-5275" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                                        <div id="div-comment-5275" class="comment-body">
+                                                            <a class="pull-left thumb-sm">
+                                                                <img nogallery src="static/picture/e0671747f9ca403da0b576e7e3d8b180.gif" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">
+                                                            </a>
+                                                            <div class="m-b m-l-xxl">
+                                                                <div class="comment-meta">
+                                                                    <span class="comment-author vcard">
+                                                                        <b class="fn"><a href="http://www.ihewro.com/" target="_blank" rel="external nofollow">@cc.FromUserName</a></b>
+                                                                        @if (cc.FromUserId == article.Articlemd.CreateUser)
+                                                                        {<label class="label bg-dark m-l-xs">楼主</label>}
+                                                                    </span>
+                                                                    <div class="comment-metadata">
+                                                                        <time class="format_time text-muted text-xs block m-t-xs" pubdate="pubdate" datetime="2018-07-09T12:20:32+08:00">1 个月前</time>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="comment-content m-t-sm">
+                                                                    <span class="comment-author-at"><b></b></span>
+                                                                    <p class="my-content">@cc.Content </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        }
+                                    }
+                                </li>
+                            }
+                        }
+                    </ol>
+                    <nav class="text-center m-t-lg m-b-lg" role="navigation"></nav>
+                    <div id="respond-post-813" class="layui-form respond comment-respond">
+                        <h4 id="reply-title" class="comment-reply-title m-t-lg m-b">
+                            发表评论 <small class="cancel-comment-reply">
+                                <a id="cancel-comment-reply-link" href="https://www.ihewro.com/archives/813/#respond-post-813" rel="nofollow" style="display:none;color:#fff;" onclick="return TypechoComment.cancelReply();">取消回复</a>
+                            </small>
+                        </h4>
+                        <div class="layui-form">
+                            <form id="form">
+                                <div class="layui-form-item comment-form-comment form-group">
+                                    <label for="comment">评论 <span class="required text-danger">*</span></label>
+                                    <textarea id="comment" class="textarea form-control OwO-textarea" name="Content" rows="5" placeholder="说点什么吧……" onkeydown="if(event.ctrlKey&&event.keyCode==13){document.getElementById('submit').click();return false};"></textarea>
+                                    <div class="OwO"></div>
+                                </div>
+                                <div class="layui-form-item form-group">
+                                    <button class="layui-btn submit btn-success padder-lg" lay-filter="post" lay-submit style="">
+                                        <span class="text">发表评论</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 ">
+            <aside id="sidebar" style="background-color:transparent">
+                <div class="sidebar-wrap">
+                    <div class="affix">
+                    </div>
+                    <div class='sidebar-article'>
+
+                        <div class="widget widget-profile-elegant">
+                            <div class="widget-profile-avatar">
+                                <img alt='' src='static/picture/avatar_user_1_1500356034-60x60.png' srcset='http://heijing.chuangzaoshi.com/wp-content/uploads/2017/07/avatar_user_1_1500356034-120x120.png 2x' class='avatar avatar-60 photo' height='60' width='60' />
+                            </div>
+                            <div class="widget-profile-user text-center f-bold">
+                                <a href="http://chuangzaoshi.com/" target="_blank">
+                                    @article.Articlemd.Editor
+                                </a>
+                            </div>
+                            <div class="widget-profile-description text-center mb-4">
+                                作者签名或描述
+                            </div>
+                            <div class='widget-profile-role mb-6'><span>管理员</span></div>        <div class="widget-profile-footer text-center">
+                                <a class="col-6 py-3 d-block" href="http://heijing.chuangzaoshi.com/archives/author/designer" style="border-right: 1px solid #eee;">
+                                    <i class="czs-doc-file-l"></i>作品
+                                </a>
+                                <a class="col-6 py-3 d-block" target="_blank" href="http://chuangzaoshi.com/">
+                                    <i class="czs-network-l"></i>网站
+                                </a>
+                            </div>
+                        </div>
+                        <div id="widget-tagcloud-2" class="widget widget-tagcloud">
+                            <div class="widget-title"><span>标签云</span></div>
+                            <div class="tagcloud">
+                                <a href="http://heijing.chuangzaoshi.com/archives/tag/uikit" class="tag-cloud-link tag-link-14 tag-link-position-1" style="font-size: 15.411764705882pt;" aria-label="UIkit (15个项目)">UIkit</a>
+                                <a href="http://heijing.chuangzaoshi.com/archives/tag/poster" class="tag-cloud-link tag-link-17 tag-link-position-2" style="font-size: 15.411764705882pt;" aria-label="海报设计 (15个项目)">海报设计</a>
+                                <a href="http://heijing.chuangzaoshi.com/archives/tag/creativity" class="tag-cloud-link tag-link-15 tag-link-position-3" style="font-size: 22pt;" aria-label="灵感创意 (18个项目)">灵感创意</a>
+                                <a href="http://heijing.chuangzaoshi.com/archives/tag/interface" class="tag-cloud-link tag-link-16 tag-link-position-4" style="font-size: 8pt;" aria-label="界面交互 (12个项目)">界面交互</a>            <a class="tagcloud-more" href="http://heijing.chuangzaoshi.com/tags" title="更多标签">更多</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    <div class="scrollTop transition">
+        <i class="czs-arrow-up-l"></i>
+    </div>
+</main>
+<script src="~/Content/static/js/jquery.min.js"></script>
+<script src="~/Content/static/js/bootstrap.min.js"></script>
+<script src="~/Content/static/js/lazyload.min.js"></script>
+<script src="~/Content/layuiadmin/layui/layui.js"></script>
+<script src="~/Content/lib/Toastr/toastr.min.js"></script>
+<script src="~/Content/js/adder.main.js"></script>
+@section js{
+    <script type="text/javascript">
+        $(function () {
+             layui.use('form', function () {
+                var form = layui.form;
+                //监听提交
+                form.on('submit(post)', function (data) {
+                    $.ajax({
+                        url: "/Home/AddComment?postId=@article.Articlemd.Id",
+                        data: data.field,
+                        type: "post",
+                        success: function (res) {
+                            if (res.success) {
+                                layer.msg('发表成功', { icon: 1, time: 2000 }, function () {
+                                    location.reload()
+                                });
+                            } else {
+                                layer.msg(res.msg, { icon: 0 });
+                            }
+                        }
+                    });
+                    return false;
+                });
+            });
+
+            window.TypechoComment = {
+                dom: function (id) { return document.getElementById(id); }, create: function (tag, attr) {
+                    var el = document.createElement(tag); for (var key in attr) { el.setAttribute(key, attr[key]); }
+                    return el;
+                }, reply: function (cid, coid) {
+                    var comment = this.dom(cid), parent = comment.parentNode, response = this.dom('respond-post-813'), input = this.dom('comment-parent'), form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0], textarea = response.getElementsByTagName('textarea')[0]; if (null == input) {
+                        input = this.create('input', {
+                            'type': 'hidden', 'name': 'CommentId', 'id': 'comment-parent'
+                        }); form.appendChild(input);
+                    }
+                    input.setAttribute('value', cid); if (null == this.dom('comment-form-place-holder')) {
+                        var holder = this.create('div', {
+                            'id': 'comment-form-place-holder'
+                        }); response.parentNode.insertBefore(holder, response);
+                    }
+                    comment.appendChild(response); this.dom('cancel-comment-reply-link').style.display = ''; if (null != textarea && 'text' == textarea.name) { textarea.focus(); }
+                    return false;
+                }, cancelReply: function () {
+                    var response = this.dom('respond-post-813'), holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent'); if (null != input) { input.parentNode.removeChild(input); }
+                    if (null == holder) { return true; }
+                    this.dom('cancel-comment-reply-link').style.display = 'none'; holder.parentNode.insertBefore(response, holder); return false;
+                }
+            };
+        });
+    </script>
+    }
+

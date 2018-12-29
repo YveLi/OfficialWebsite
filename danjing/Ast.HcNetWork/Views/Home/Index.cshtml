@@ -1,0 +1,106 @@
+﻿@using Ast.Models;
+@{
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
+    var banner = ViewBag.banner as IList<Ast.Models.Hc_BannerList>;
+    var webset = ViewBag.webset as Ast.Models.Hc_WebSetting;
+    var mymenu = ViewBag.mymenu as List<Hc_WebMenu>;
+}
+<style>
+    div {
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+</style>
+<div class="banner banner-index" id="wheight">
+    <div class="swiper-container" id="bannerSwiper" style="height:100%;position: relative;z-index: 1">
+        <div class="swiper-wrapper">
+            @if (banner != null)
+            {
+                foreach (var item in banner)
+                {
+                    <div class="swiper-slide" style="background-image: url(@item.Img);">
+                        <div class="banner-table">
+                            <div class="banner-table-cell">
+                                <h1 class="banner-title">@item.Name</h1>
+                                <div class="green-line"></div>
+                                <h1>@item.EnName</h1>
+                                <h2>&nbsp;</h2>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+</div>
+<div class="index-about clearfix" style="background-image:url('@mymenu[1].Img');background-repeat:no-repeat;    background-attachment: local;">
+    <div class="container mt50 mb30">
+        <div class="row">
+            <div class="col-xs-12 banner-table">
+                <div class="banner-table-cell module module-white module-left" style="color:#fff;">
+                    <h1 class="banner-title">@mymenu[1].ThemeName</h1>
+                    <h2>@mymenu[1].EnThemeName</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="index-about clearfix" style="background-image:url('@mymenu[0].Img');background-repeat:no-repeat;background-attachment: local;">
+    <div class="container mt50 mb30">
+        <div class="row">
+            <div class="col-xs-12 banner-table" >
+                <div class="banner-table-cell module module-white module-right"  style="color:#fff;">
+                    <h1 class="banner-title">@mymenu[0].ThemeName</h1>
+                    <h2>@mymenu[0].EnThemeName</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="index-about clearfix" style="height:400px; background-image:url('../../Content/img/hongchen-20180828.jpg');background-repeat:no-repeat;background-attachment: local;">
+    <div class="container mt50">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="module module-white">
+                    <div class="module" style="margin-bottom:1rem;">关于丹井</div>
+                    <h2 style="color:#13c173;margin-bottom:1rem">一家为“人类的健康存在”而努力的公司</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mb50 detail" style="padding: 0 2rem">
+        <p style="color:#000;    max-width: 50rem;
+    margin: 0 auto;">@Html.Raw(webset.Memo)</p>
+    <div class="links">
+        <a href="/Home/About">更多详细</a>
+        <a href="/Home/Contact">联系我们</a>
+    </div>
+    </div>
+</div>
+@section js{
+    <script>
+        $(function () {
+            $('#bannerIndex').height($(window).height());
+            var companyAboutSwiper = new Swiper('#bannerSwiper', {
+                pagination: '.swiper-pagination',
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                // slidesPerView: get5View(),
+                paginationClickable: true,
+                //spaceBetween: 30
+            });
+        });
+        $(document).ready(function () {
+            var wwidth = $(window).width();
+            wheight = $(window).height();
+            if (wwidth >= 768) {
+                document.getElementById("wheight").style.height = wheight+"px";
+            }
+    
+        });
+    </script>
+
+}

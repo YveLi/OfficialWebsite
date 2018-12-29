@@ -1,0 +1,54 @@
+﻿@using Ast.Models
+ @{
+     Layout = "~/Views/Shared/_WebLayout.cshtml";
+     Hc_ArticleList article = ViewBag.detail as Hc_ArticleList;
+     var articleList = ViewBag.nav as List<Hc_ArticleList>;
+     var index = ViewBag.index;
+}
+<style>
+    .news-oper a {
+        /* display: inline-block; */
+        /* text-indent: -999em; */
+        /* height: 56px; */
+        width: 56px;
+        /* margin: 5px; */
+        opacity: 0.75;
+        display: block;
+    }
+    .news-oper p {
+        width: 767px;
+        margin-left: 3rem;
+    }
+</style>
+<body>
+    <div class="news-body" style="padding-top:90px;">
+        <hr />
+        <div class="detail-top" style="margin:3rem auto">
+            <img class="detail-img" src="@article.TopImg"/>
+        </div>
+        <div class="mb50" style="    padding: 0 1.5rem;">
+            <h2 class="news-title" style="margin: 5px 0 15px;color: #13c173;font-size:35px;">@article.Title</h2>
+            <div class="news-info">
+                <span>@article.Editor</span>
+                <span>@article.AddTime.ToString("yyyy / MM /  dd")</span>
+                @*<span>建站知识</span>
+                <span><i class=""></i> 100</span>
+                <span><i class=""></i> 分享</span>*@
+            </div>
+            <div class="news-body" style="min-height:28rem">
+                @Html.Raw(article.HcContent)
+            </div>
+            <div class="news-oper">
+                @if (index - 1 >= 0)
+                {
+                    <a class="news-oper-prev" href="/Home/ArticleDetail?id=@articleList[index-1].Id" style="width:25px;background-size: 100%;margin-bottom:1rem;"><p style="color:#888">上一篇：@articleList[index - 1].Title</p></a>
+                }
+                <!--<a class="news-oper-menu" href="/cn/list_96.html">menu</a>-->
+                @if (index + 1 < articleList.Count)
+                {
+                    <a class="news-oper-next" href="/Home/ArticleDetail?id=@articleList[index + 1].Id" style="width:25px;background-size: 100%;margin-bottom:1rem;"><p style="color:#888">下一篇：@articleList[index + 1].Title</p></a>
+                }
+            </div>
+        </div>
+    </div>
+</body>

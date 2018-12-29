@@ -1,0 +1,178 @@
+﻿@{
+    var webset = ViewBag.webset as Ast.Models.Hc_WebSetting;
+    var menu = ViewBag.menu as IList<Ast.Models.Hc_WebMenu>;
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@webset.SEOTitle</title>
+    <link rel="shortcut icon" href="~/favicon.ico">
+    <meta name="keywords" content="@webset.SEOKeywords" />
+    <meta name="description" content="@webset.SEODescription" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" href="~/Content/static/css/bootstrap.css">
+    <link rel="stylesheet" href="~/Content/static/css/style.css">
+    <link href="~/Content/layuiadmin/layui/css/layui.css" rel="stylesheet" />
+    <style>
+        .nav-wrap {
+            z-index: 999;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.2s ease;
+        }
+
+        .nav-list {
+            position: fixed;
+            right: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            z-index: 999;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 100px -10px;
+        }
+
+            .nav-list ul li {
+                width:100%;
+                height: 100px;
+                text-align: center;
+                padding-top: 20px;
+                border-radius: 5px;
+                font-size:3rem;
+                text-align:right;
+            }
+
+                .nav-list ul li:hover {
+                    color: #13c173;
+                }
+                .nav-ul{
+                    margin-top:8rem;
+                    padding-right:5rem;
+                }
+    </style>
+</head>
+<body>
+    <!-- header -->
+    <div id="paper-window">
+        <div id="paper-front">
+            <div id="container">
+                <div class="header " id="hea">
+                    <div class="" id="nav-container" style="padding:1rem 3rem;    background-color: #fff;height:95px">
+                        <a class="header-logo" href="/" style="display:unset">
+                            <img src="@webset.Logo" style="height: 60px;">
+                        </a>
+                        <a style="float:right;margin:1rem">
+                            <div class="nav-wrap" id="nav-wrap" style="background-image:url(../../Content/img/sangang-black.png);background-position: center;
+    background-repeat: no-repeat;">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-list corner-card" id="nav-list" style="display:none">
+                    <div class="nav-wrap" id="nav-wrap-close" style="background-image:url(../../Content/img/close.png);position:fixed;    right: 4rem;
+    top: 2rem;
+    width: 40px;
+    height: 40px;
+        background-position: center;
+    background-repeat: no-repeat;">
+                    </div>
+                    @*<ul class="nav-ul">
+            <a href="/Home"><li  id="index">首页</li></a>
+            <a href="/Home/About"><li id="about">关于</li></a>
+            <a href="/Home/News"><li id="news">新闻</li></a>
+            <a href="/Home/Contact"><li id="contact">联系</li></a>
+            <a href="/Home/Login"><li id="login">登录</li></a>
+        </ul>*@ 
+                    <ul class="nav-ul">
+                        @foreach (var item in menu)
+                        {
+                            if (item == menu[5]) { break; }
+                            <a href="@item.Url"><li id="@item.EnName">@item.EnName</li></a>
+                        }
+                    </ul>
+                </div>
+                <!-- end header -->
+                @RenderBody()
+                <div class="footer" style="bottom:0;width:100%;">
+                    <div class="footer-copyright" style="margin-bottom:0;background-color: #888;color:#eee">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p class="copyright" style="text-align:center">
+                                        @Html.Raw("@")2018星哩  &nbsp;&nbsp;&nbsp;@webset.FullName  &nbsp;&nbsp;&nbsp;增值电信业务营业许可证：@webset.BeiAnNo
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* <div class="fixed-menu" id="fixedMenu">
+                        <a class="item top" href="#hea"></a>
+                        <a class="item qq" target=blank href="tencent://message/?uin=996381423&Site=&Menu=yes"><span>1143477896</span></a>
+                        <a class="item phone" href="#"><span>18859690629</span></a>
+                        <a class="item ercode" href="#">
+                            <img src="static/picture/icon_ercode_1.png">
+                        </a>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <!-- base script -->
+    <script src="~/Content/js/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/static/js/bootstrap.min.js"></script>
+    <script src="~/Content/static/js/particles.min.js"></script>
+    <script src="~/Content/static/js/three.min.js"></script>
+    <script src="~/Content/static/js/jquery.lazyload.js"></script>
+    <script src="~/Content/static/js/jquery.pabox.min.js"></script>
+    <script src="~/Content/static/js/jquery.scrolling.min.js"></script>
+    <script src="~/Content/static/js/wow.min.min.js"></script>
+    <script src="~/Content/static/js/jquery.touchwipe.min.js"></script>
+    <script src="~/Content/static/js/jquery.swiper.min.js"></script>
+    <script src="~/Content/static/js/script.js"></script>
+    <script src="~/Content/layuiadmin/layui/layui.all.js"></script>
+    @RenderSection("js", required: false)
+    <script>
+        $(document).ready(function () {
+            document.getElementById("nav-wrap").onclick = function () {
+                //current为单数按钮旋转90°，否则转回0°
+                    $("#nav-list").slideDown(300);
+            };
+            document.getElementById("nav-wrap-close").onclick = function () {
+                $("#nav-list").slideUp(300);
+            };
+
+
+            $("#HOME").hover(function() {
+                document.getElementById("HOME").innerText = "首页";
+            }, function() {
+                document.getElementById("HOME").innerText = "HOME";
+                });
+            $("#About").hover(function () {
+                document.getElementById("About").innerText = "关于";
+            }, function () {
+                document.getElementById("About").innerText = "About";
+                });
+            $("#News").hover(function () {
+                document.getElementById("News").innerText = "新闻";
+            }, function () {
+                document.getElementById("News").innerText = "News";
+                });
+            $("#Contact").hover(function () {
+                document.getElementById("Contact").innerText = "联系";
+            }, function () {
+                document.getElementById("Contact").innerText = "Contact";
+                });
+            $("#Login").hover(function () {
+                document.getElementById("Login").innerText = "登录";
+            }, function () {
+                document.getElementById("Login").innerText = "Login";
+            });
+        });
+    </script>
+</body>
+</html>

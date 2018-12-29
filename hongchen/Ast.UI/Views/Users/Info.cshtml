@@ -1,0 +1,201 @@
+﻿@using Ast.Models;
+@{
+    Layout = "~/Views/Shared/_Info.cshtml";
+    var departlist = ViewBag.departlist as IList<OTADepartment>;
+    var postlist = ViewBag.postlist as IList<OTAPost>;
+}
+@model OTAUsers
+<style>
+    .avatar-lg {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #0094ff;
+        padding: 5px;
+        border-radius: 5px;
+        margin-right: 5px;
+    }
+
+    .inp {
+        padding: 5px;
+        margin-right: 5px;
+    }
+
+    .layui-table-body {
+        overflow: hidden;
+    }
+</style>
+<div class="layui-form-item">
+    <blockquote class="layui-elem-quote" style="border-left:5px solid #344058">
+        <div class="layui-inline">
+            <a class="layui-btn layui-btn-xs layui-btn-black"><i class="layui-icon layui-icon-picture"></i>头像</a>
+        </div>
+    </blockquote>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">头像</label>
+    <div class="layui-upload-list" id="imgbox">
+        <img src="http://admin.kxintrip.com/Uploads/HeadPortraits/2018611101528690.png" name="imgphoto" class="avatar-lg center-block" id="img1">
+    </div>
+    <span class="loading1"></span>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label"></label>
+    <div id="btnbox"><div class="layui-input-inline inp" style="width:90px;"><button class="layui-btn layui-btn-normal file" id="file1">上传</button></div></div>
+</div>
+<div class="layui-form-item">
+    <blockquote class="layui-elem-quote" style="border-left:5px solid #344058">
+        <div class="layui-inline">
+            <a class="layui-btn layui-btn-xs layui-btn-black"><i class="layui-icon layui-icon-user"></i>员工信息</a>
+        </div>
+    </blockquote>
+</div>
+<form class="layui-form" lay-filter="layuiform">
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>登录账号</label>
+        <div class="layui-input-inline">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" id="Img" name="Img" value="@Model.Img" />
+            <input type="text" name="LoginName" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.LoginName">
+        </div>
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>真实名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="RealName" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.RealName">
+        </div>
+        <div class="layui-input-inline">
+            <select id="Gender" name="Gender">
+                <option value="0">男</option>
+                <option value="1">女</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="PassWord" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.PassWord">
+        </div>
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>部门</label>
+        <div class="layui-input-inline">
+            <select id="DepartmentId" name="DepartmentId">
+                @if (departlist.Count > 0)
+                {
+                    foreach (var item in departlist)
+                    {
+                        <option value="@item.Id">@item.PostName</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>职位</label>
+        <div class="layui-input-inline">
+            <select id="PostId" name="PostId">
+                @if (postlist.Count > 0)
+                {
+                    foreach (var item in postlist)
+                    {
+                        <option value="@item.Id">@item.PostName</option>
+                    }
+                }
+            </select>
+        </div>
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>经理</label>
+        <div class="layui-input-inline">
+            <select id="IsLeader" name="IsLeader">
+                <option value="0">否</option>
+                <option value="1">是</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Email" autocomplete="off" class="layui-input" value="@Model.Email">
+        </div>
+        <label class="layui-form-label">手机</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Mobile" autocomplete="off" class="layui-input" value="@Model.Mobile">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">详细地址</label>
+        <div class="layui-input-block">
+            <input class="layui-input" name="Address" value="@Model.Address" />
+        </div>
+    </div>
+    <hr>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+        </div>
+    </div>
+</form>
+
+@section js{
+    <script>
+        $(function () {
+            $.ajaxSetup({ async: false });
+            $("#Gender").val(@Model.Gender);
+            $("#DepartmentId").val(@Model.DepartmentId);
+            $("#PostId").val(@Model.PostId);
+            $("#IsAdmin").val(@Model.IsAdmin);
+            $("#IsLeader").val(@Model.IsLeader);
+            var img = "@Model.Img";
+            if (img!="") {
+                $("#img1").attr("src",img);
+            }
+            layui.use('upload', function () {
+                var layer = layui.layer, upload = layui.upload;
+                layer.photos({
+                    photos: '#imgbox'
+                    , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+                });
+                upload.render({
+                    elem: '.file' //绑定元素
+                    , url: '/FileUpload/Upload' //上传接口
+                    , method: 'post'
+                    , size: 2048
+                    //, multiple: true
+                    //, number: 1
+                    , accept: 'jpg|png|gif'
+                    , done: function (res) {
+                        if (res.status == 0) {
+                            $("#img1").attr("src", res.url)
+                            $("#Img").val(res.url)
+                        } else {
+                            layer.msg(res.msg, { icon: 5 });
+                        };
+                    }
+                    , error: function () {
+                        avatarAdd.find('.loading1').hide();
+                    }
+                });
+            });
+            layui.use(['form'], function () {
+                var form = layui.form;
+                form.on('submit(form)', function (data) {
+                    if (data.field.Img.length<0) {
+                        layer.msg("请添加头像！", { icon: 2 })
+                        return false;
+                    }
+                    data.field.PostName = $("#PostId").find("option:selected").text();
+                    data.field.DepartName = $("#DepartmentId").find("option:selected").text();
+                    $.post('/Users/UsersUpdate', data.field, function (res) {
+                        if (res!="") {
+                            layer.msg(res, {icon:2});
+                        } else {
+                            window.parent.init();
+                            window.parent.adder.msg(1);
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                        }
+                    });
+                    return false;
+                });
+            });
+            adder.render();
+        });
+    </script>
+
+}
+

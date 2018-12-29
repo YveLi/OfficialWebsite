@@ -1,0 +1,42 @@
+﻿@using Ast.Models;
+@{
+    Layout = "~/Views/Shared/_Info.cshtml";
+}
+@model OTAFuncMenus
+<form class="layui-form" lay-filter="layuiform">
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>编号</label>
+        <div class="layui-input-inline">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="text" name="FuncCode" required lay-verify="required" placeholder="编号" autocomplete="off" class="layui-input" value="@Model.FuncCode">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="FuncName" required lay-verify="required" placeholder="名称" autocomplete="off" class="layui-input" value="@Model.FuncName">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>代码</label>
+        <div class="layui-input-inline">
+            <input type="text" name="FuncEName" placeholder="代码" autocomplete="off" class="layui-input" value="@Model.FuncEName">
+        </div>
+    </div>
+    <hr>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+        </div>
+    </div>
+
+</form>
+
+@section js{
+    <script>
+        $(function () {
+            adder.save({ url: "/Sys/FuncUpdate" });
+        });
+    </script>
+}
+

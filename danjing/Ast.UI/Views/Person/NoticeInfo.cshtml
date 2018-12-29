@@ -1,0 +1,83 @@
+﻿@using OTAMS.Models;
+@{
+    var list = ViewBag.typelist as IList<SysNoticeType>;
+    Layout = "~/Views/Shared/_Info.cshtml";
+}
+@model SysNoticeList
+
+<form class="layui-form" lay-filter="layuiform">
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>标题</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="text" name="Title" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.Title">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>类型</label>
+        <div class="layui-input-inline">
+            <select id="NoticeType" name="NoticeType">
+                @if (list.Count > 0)
+                {
+                    foreach (var item in list)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>时间</label>
+        <div class="layui-input-inline">
+            <input class="layui-input LayDate" name="PushTime" value="@Model.PushTime">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">通知内容</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" placeholder="请输入通知内容" id="Content" name="Content" autocomplete="off">@Model.Content</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item" id="unlook">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+        </div>
+    </div>
+</form>
+
+@section js{
+    <script>
+        var editIndex1;
+        $(function () {
+            $.ajaxSetup({ async: false });
+            var type = adder.getQuery('type');
+            if (type=="1") {
+                $("#unlook").hide();
+            }
+            adder.LayDate();
+            $("#NoticeType").val(@Model.NoticeType);
+            layui.use(['form', 'layedit'], function () {
+                var form = layui.form, layedit = layui.layedit;
+                layedit.set({
+                    uploadImage: {
+                        url: '/FileUpload/FileRecive' //接口url
+                        , type: 'post' //默认post
+                    }
+                });
+                editIndex1 = layedit.build("Content");
+                form.on('submit(form)', function (data) {
+                    data.field.Content = layedit.getContent(editIndex1);
+                    data.field.NoticeTypeName = $("#NoticeType").find("option:selected").text()
+                    $.post('/Person/NoticeUpdate', data.field, function (res) {
+                        window.parent.init();
+                        window.parent.adder.msg(1);
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                    return false;
+                });
+            });
+            adder.render();
+        });
+    </script>
+}
+

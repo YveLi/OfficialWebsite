@@ -1,0 +1,55 @@
+﻿@using Ast.Models;
+@{
+    var schoollist = ViewBag.school as IList<SchoolList>;
+    Layout = "~/Views/Shared/_Info.cshtml";
+}
+@model SchoolList
+
+<form class="layui-form" lay-filter="layuiform">
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>学校名称</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="text" name="Name" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.Name">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>学校地址</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="text" name="Address" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.Address">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+        </div>
+    </div>
+</form>
+
+@section js{
+    <script>
+        var editIndex1;
+        $(function () {
+            $.ajaxSetup({ async: false });
+            adder.LayDate();
+            layui.use(['form', 'layedit'], function () {
+                var form = layui.form, layedit = layui.layedit;
+                form.on('submit(form)', function (data) {
+                    $.post('/User/UpdateSchool', data.field, function (res) {
+                        if (res == "1") {
+                            window.parent.adder.msg(1);
+                        } else {
+                            window.parent.adder.msg(0);
+                        }
+                        window.parent.init();
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                    return false;
+                });
+            });
+            adder.render();
+        });
+    </script>
+}

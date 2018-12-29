@@ -1,0 +1,125 @@
+﻿@using Ast.Models;
+@{
+    Layout = "~/Views/Shared/_Info.cshtml";
+}
+@model Hc_BannerList
+<style>
+    .imgtpl {
+        width: 150px;
+        height: 100px;
+        margin-right: 20px;
+        border: 1px solid #D2D2D2;
+        border-radius: 10px;
+        padding: 10px;
+    }
+</style>
+<div class="layui-form-item">
+    <label class="layui-form-label"></label>
+    <img id="imgurl1" class="avatar-lg center-block imgtpl" src="~/Content/img/avatar.jpg">
+    <span class="loading1"></span>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label"></label>
+    <div class="layui-inline">
+        <button class="layui-btn layui-btn-normal file" id="file1">上传主图</button>
+    </div>
+</div>
+<form class="layui-form" lay-filter="layuiform">
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="Name" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.Name">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>英文名称</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="text" name="EnName" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.EnName">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>URL</label>
+        <div class="layui-input-block">
+            <input type="text" name="Url" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.Url">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>备注</label>
+        <div class="layui-input-block">
+            <input type="text" name="Memo" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.Memo">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>排序</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Sort" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.Sort">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+        </div>
+    </div>
+</form>
+
+@section js{
+    <script>
+        $(function () {
+            var surl = "@Model.Img";
+            if (surl!="") {
+             $("#imgurl1").attr("src", surl);
+            }
+         layui.use(['layer', 'upload'], function () {
+            var layer = layui.layer, upload = layui.upload;
+            var uploadInst = upload.render({
+                elem: '.file' //绑定元素
+                , url: '/FileUpload/Upload' //上传接口
+                , method: 'post'
+                , size: 2048
+                , accept: 'jpg|png|gif'
+                , done: function (res) {
+                    if (res.status == 0) {
+                        var id = this.item[0].id.replace("file", "");
+                        $("#imgurl" + id).attr("src", res.url);
+                    } else {
+                        layer.msg(res.msg, { icon: 5 });
+                    };
+                }
+                , error: function () {
+                    avatarAdd.find('.loading1').hide();
+                }
+            });
+            });
+
+            $.ajaxSetup({ async: false });
+            adder.LayDate();
+            layui.use(['form', 'layedit'], function () {
+                var form = layui.form, layedit = layui.layedit;
+                layedit.set({
+                    uploadImage: {
+                        url: "/FileUpload/FileRecive" //接口url
+                        , type: "post"//默认post
+                    }
+                });
+                form.on('submit(form)', function (data) {
+                    data.field.Img = $("#imgurl1").attr("src");
+                    $.post('/Admin/UpdateBanner', data.field, function (res) {
+                        if (res.success) {
+                            window.parent.adder.msg(1);
+                        } else {
+                            window.parent.adder.msg(0);
+                        }
+                        window.parent.init();
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                    return false;
+                });
+            });
+            adder.render();
+        });
+    </script>
+}
+

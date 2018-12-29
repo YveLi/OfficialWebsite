@@ -1,0 +1,288 @@
+﻿@using Ast.Models;
+@{
+    var noticelist = ViewBag.noticelist as IList<SysNoticeList>;
+    ViewBag.Title = ViewBag.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <!-- 头部区域 -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;" layadmin-event="refresh" title="刷新" id="refresh" class=" layui-anim  layui-anim-loop">
+                        <i class="layui-icon layui-icon-refresh-3"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+                @*<li class="layui-nav-item" lay-unselect>
+                    <a lay-href="/Common/MsgIndex" layadmin-event="message" lay-text="消息中心">
+                        <i class="layui-icon layui-icon-notice"></i>
+                        <span class="layui-badge-dot"></span>
+                    </a>
+                </li>*@
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="theme">
+                        <i class="layui-icon layui-icon-theme"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="note">
+                        <i class="layui-icon layui-icon-note"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;">
+                        <cite>@ViewBag.UserName</cite>
+                    </a>
+                    <dl class="layui-nav-child">
+                        @*<dd><a lay-href="set/user/info.html">基本资料</a></dd>
+                        <dd><a lay-href="set/user/password.html">修改密码</a></dd>
+                        <hr />*@
+                        <dd><a onclick="loginOut()" style="text-align: center;" href="javascript:;">退出</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                </li>
+                <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
+                    <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 侧边菜单 -->
+        <div class="layui-side layui-side-menu">
+            <div class="layui-side-scroll">
+                <div class="layui-logo" lay-href="@Url.Action("Index","Main")">
+                    <span>@ViewBag.Name</span>
+                </div>
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="Menus" lay-filter="layadmin-system-side-menu"></ul>
+            </div>
+        </div>
+
+        <!-- 页面标签 -->
+        <div class="layadmin-pagetabs" id="LAY_app_tabs">
+            <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-down">
+                <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
+                    <li class="layui-nav-item" lay-unselect>
+                        <a href="javascript:;"></a>
+                        <dl class="layui-nav-child layui-anim-fadein">
+                            <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+                            <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+                            <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+                <ul class="layui-tab-title" id="LAY_app_tabsheader">
+                    <li lay-id="@Url.Action("Index","Main")" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 主体内容 -->
+        <div class="layui-body" id="LAY_app_body">
+            <div class="layadmin-tabsbody-item layui-show" style="overflow:scroll;">
+                <div class="layui-fluid">
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-sm6 layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-header">
+                                    今日出发团
+                                    <span class="layui-badge layui-bg-blue layuiadmin-badge">出发团</span>
+                                </div>
+                                <div class="layui-card-body layuiadmin-card-list">
+                                    <p class="layuiadmin-big-font">0</p>
+                                    <p>
+                                        总团量
+                                        <span class="layuiadmin-span-color">0 <i class="layui-inline layui-icon layui-icon-flag"></i></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-sm6 layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-header">
+                                    今日返回团
+                                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">返回团</span>
+                                </div>
+                                <div class="layui-card-body layuiadmin-card-list">
+                                    <p class="layuiadmin-big-font">0</p>
+                                    <p>
+                                        成交量
+                                        <span class="layuiadmin-span-color">0% <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-sm6 layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-header">
+                                    本月成团任务
+                                    <span class="layui-badge layui-bg-green layuiadmin-badge">月目标</span>
+                                </div>
+                                <div class="layui-card-body layuiadmin-card-list">
+
+                                    <p class="layuiadmin-big-font">0</p>
+                                    <p>
+                                        本月成交额
+                                        <span class="layuiadmin-span-color">*** <i class="layui-inline layui-icon layui-icon-dollar"></i></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-sm6 layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-header">
+                                    待沟通用户
+                                    <span class="layui-badge layui-bg-orange layuiadmin-badge">月</span>
+                                </div>
+                                <div class="layui-card-body layuiadmin-card-list">
+
+                                    <p class="layuiadmin-big-font">0</p>
+                                    <p>
+                                        本月沟通量
+                                        <span class="layuiadmin-span-color">0 <i class="layui-inline layui-icon layui-icon-user"></i></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-sm12">
+                            <div class="layui-row layui-col-space15">
+                                <div class="layui-col-sm6">
+                                    <div class="layui-card">
+                                        <div class="layui-card-header">通知公告</div>
+                                        <div class="layui-card-body">
+                                            <table class="layui-table layuiadmin-page-table" lay-skin="line">
+                                                <thead>
+                                                    <tr>
+                                                        <th>类型</th>
+                                                        <th>标题</th>
+                                                        <th>发布时间</th>
+                                                        <th>发布人</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (noticelist.Count > 0)
+                                                    {
+                                                        foreach (var item in noticelist)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.NoticeTypeName</td>
+                                                                <td><a class="layui-btn layui-btn-xs layui-btn-black" onclick="OpenNotice(@item.Id)">@item.Title</a></td>
+                                                                <td><i class="layui-icon layui-icon-log">@item.PushTime</i></td>
+                                                                <td>@item.PushUserName</td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-sm6">
+                                    <div class="layui-card">
+                                        <div class="layui-card-header">项目进展</div>
+                                        <div class="layui-card-body">
+                                            <div class="layui-tab-content">
+                                                <div class="layui-tab-item layui-show">
+                                                    <table id="LAY-index-prograss"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 内容 -->
+            </div>
+            <!-- 辅助元素，一般用于移动设备下遮罩 -->
+            <div class="layadmin-body-shade" layadmin-event="shade"></div>
+        </div>
+    </div>
+</div>
+
+@section js{
+    <script>
+        $(function () {
+            $.ajaxSetup({ async: false });
+            initMenus();
+            loadMsg();
+        });
+        function loadMsg() {
+            setInterval("NoticeMsg()", 1000 * 60);
+        }
+        var NoticeCount = 0;
+        function NoticeMsg() {
+            if (NoticeCount < 5) {
+                $.getJSON("../Common/GetUnReadMsgList", {}, function (data) {
+                    if (data.length > 0) {
+                        $.each(data, function (i, item) {
+                            if (i < 5) {
+                                adder.lobibox({ id: item.Id, type: item.Type, title: adder.ReturnFixStr(item.Title, 20), content: "时间：" + adder.dateformat(item.AddTime, 1), func: adder.openshowbox });
+                            }
+                        });
+                    }
+                });
+            }
+        }
+        function initMenus() {
+            var menulist = [];
+            $.getJSON('/Main/GetMenu', {}, function (res) {
+                menulist = res;
+            });
+            var menutpl = $("#menutpl")[0].innerHTML;
+            var view = $("#Menus")[0];
+            var data = {
+                menulist: menulist
+            };
+            layui.use('laytpl', function (t) {
+                var laytpl = layui.laytpl;
+                laytpl(menutpl).render(data, function (html) {
+                    view.innerHTML = html;
+                    adder.render();
+                });
+            });
+        }
+
+        function OpenNotice(id) {
+            var dialog = {
+                title: '通知公告', // 窗口名称
+                area: ['50%', '80%'], //宽高
+                shade:0.5,
+                url: "/Person/NoticeInfo?type=1&id=" + id
+            }
+            adder.admindialog(dialog);
+        }
+    </script>
+    <script type="text/html" id="menutpl">
+        {{#  layui.each(d.menulist, function(index, item){ }}
+        <li data-name="user" class="layui-nav-item">
+            <a href="javascript:;" lay-tips="{{item.MenuName}}" lay-direction="2">
+                <i class="layui-icon {{item.Icon}}"></i>
+                <cite>{{item.MenuName}}</cite>
+            </a>
+            <dl class="layui-nav-child">
+                {{# layui.each(item.Children, function(x, y){}}
+                <dd>
+                    <a lay-href="{{y.MenuUrl}}?MenuId={{y.Id}}" onclick="layer.tips('{{y.MenuName}}', this);admin.sideFlexible();">{{y.MenuName}}</a>
+                </dd>
+                {{# }); }}
+            </dl>
+        </li>
+        {{# }); }}
+    </script>
+}

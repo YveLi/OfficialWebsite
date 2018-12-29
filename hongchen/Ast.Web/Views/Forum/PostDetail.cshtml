@@ -1,0 +1,286 @@
+﻿@using Ast.Models;
+@using Ast.Web.Models;
+@{
+    ViewBag.Title = "帖子内容";
+    Layout = "~/Views/Shared/_ForumLayout.cshtml";
+    var postType = ViewBag.postType as IList<ClubPostType>;
+    var post = ViewBag.post as PostModel;
+    var comment = ViewBag.comment as IList<ClubPostCommentList>;
+    var commentmd = ViewBag.commentModel as IList<CommentModel>;
+}
+<div class="col center-part">
+    <header id="small_widgets" class="bg-light b-b wrapper-md">
+        <h1 class="entry-title m-n font-thin h3 text-black l-h">@post.postmd.Title</h1>
+        <ul class="entry-meta text-muted list-inline m-b-none small
+             post-head-icon">
+            <li class="meta-author"><i class="fontello fontello-user" aria-hidden="true"></i><span class="sr-only">博主：</span> <a class="meta-value" href="https://www.ihewro.com/author/1/" rel="author">@post.membermd.Name</a></li>
+            <li class="meta-date"><i class="fontello fontello-clock-o" aria-hidden="true"></i>&nbsp;<span class="sr-only">发布时间：</span><time class="meta-value">@post.postmd.AddTime</time></li>
+            <li class="meta-views"><i class="fontello fontello-eye" aria-hidden="true"></i>&nbsp;<span class="meta-value">@post.postmd.LookNum&nbsp;次浏览</span></li>
+            <li class="meta-comments"><i class="iconfont icon-comments-o" aria-hidden="true"></i><span class="meta-value" href="#comments"><a href="#comments">&nbsp;@post.postmd.ReplyCount 条评论</a></span></li>
+            <li class="meta-categories"><i class="fontello fontello-tags" aria-hidden="true"></i> <span class="sr-only">分类：</span> <span class="meta-value">@post.posttypename</span></li>
+        </ul>
+    </header>
+    <div class="wrapper-md" id="post-panel">
+        <ol class="breadcrumb bg-white b-a" itemscope="">
+            <li>
+                <a href="https://www.ihewro.com/" itemprop="breadcrumb" title="返回首页" data-toggle="tooltip"><i class="fontello fontello-home" aria-hidden="true"></i>&nbsp;首页</a>
+            </li>
+            <li class="active">正文&nbsp;&nbsp;</li>
+            <div style="float:right;">
+                分享到：
+                <style>
+                    i.iconfont.icon-qzone:after {
+                        padding: 0 0 0 5px;
+                        color: #ccc;
+                        content: "/\00a0";
+                    }
+
+                    i.fontello.fontello-weibo:after {
+                        padding: 0 5px 0 5px;
+                        color: #ccc;
+                        content: "/\00a0";
+                    }
+                </style>
+                <a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.ihewro.com/archives/813/&title=日剧推荐《全开女孩》&site=https://www.ihewro.com/" itemprop="breadcrumb" target="_blank" title="" data-toggle="tooltip" data-original-title="分享到QQ空间" onclick="window.open(this.href, 'qzone-share', 'width=550,height=335');return false;"><i style="font-size:15px;" class="iconfont icon-qzone" aria-hidden="true"></i></a>
+                <a href="http://service.weibo.com/share/share.php?url=https://www.ihewro.com/archives/813/&title=日剧推荐《全开女孩》" target="_blank" itemprop="breadcrumb" title="" data-toggle="tooltip" data-original-title="分享到微博" onclick="window.open(this.href, 'weibo-share', 'width=550,height=335');return false;"><i style="font-size:15px;" class="fontello fontello-weibo" aria-hidden="true"></i></a> <a id="generateShareImg" itemprop="breadcrumb" title="" data-toggle="tooltip" data-original-title="生成分享图"><i style="font-size:13px;" class="fontello fontello-camera" aria-hidden="true"></i></a>
+            </div>
+        </ol>
+        <div id="postpage" class="blog-post">
+            <post class="panel">
+                <div class="entry-thumbnail" aria-hidden="true"><div class="item-thumb lazy" data-original="https://www.ihewro.com/usr/uploads/2018/06/3748578907.jpg!/fw/1200" style="background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxMzggNzkuMTU5ODI0LCAyMDE2LzA5LzE0LTAxOjA5OjAxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+IEmuOgAAAA1JREFUCJljePfx038ACXMD0ZVlJAYAAAAASUVORK5CYII=)"></div></div>
+                <div id="post-content" class="wrapper-lg">
+                    <div class="entry-content l-h-2x">
+                        <p>@Html.Raw(post.postmd.PostContent)</p>
+                    </div>
+                    <div class="show-foot">
+                        <p>
+                            <button class="btn m-b-xs btn-dark btn-rounded " onclick=''>
+                                <a href="https://www.loldytt.com/Zuixinriju/QKNH/" target="_blank">《全开女孩》下载</a>
+                            </button>
+                        </p>
+                        <div class="notebook">
+                            <i class="fontello fontello-clock-o"></i>
+                            <span>最后修改：2018 年 08 月 05 日 09 : 35 AM</span>
+                        </div>
+                    </div>
+                    <div class="support-author">
+                        <button data-toggle="modal" data-target="#myModal" class="btn btn-pay btn-danger btn-rounded"><i class="fontello fontello-wallet" aria-hidden="true"></i>&nbsp;赞赏</button>
+                        <div class="mt20 text-center post__reward-info">
+                            <span class="mr10">如果觉得我的文章对你有用，请随意赞赏</span>
+                        </div>
+                    </div>
+                    <div id="myModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">赞赏作者</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-center post__reward"> <strong class="post__reward-text">扫一扫支付</strong> </p>
+                                    <div class="tab-content">
+                                        <img noGallery aria-labelledby="alipay-tab" class="pay-img tab-pane fade in active" id="alipay_author" role="tabpanel" src="static/picture/111cd9249dfd408a895134223f7b9585.gif" />
+                                        <img noGallery aria-labelledby="wechatpay-tab" class="pay-img tab-pane fade" id="wechatpay_author" role="tabpanel" src="static/picture/84f6ac6b6cdb47fbbed30b88c75a961a.gif" />
+                                    </div>
+                                    <div class="post__reward-border mb20 mt10"></div>
+                                    <div class="text-center" role="tablist">
+                                        <div class="pay-button active" role="presentation">
+                                            <button href="#alipay_author" id="alipay-tab" aria-controls="alipay_author" role="tab" data-toggle="tab" class="btn m-b-xs btn-info"><i class="iconfont icon-alipay" aria-hidden="true"></i><span>&nbsp;支付宝支付</span></button>
+                                        </div>
+                                        <div class="pay-button" role="presentation">
+                                            <button href="#wechatpay_author" id="wechatpay-tab" aria-controls="wechatpay_author" role="tab" data-toggle="tab" class="btn m-b-xs btn-success"><i class="iconfont icon-wechatpay" aria-hidden="true"></i><span>&nbsp;微信支付</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </post>
+        </div>
+        <nav class="m-t-lg m-b-lg">
+            <ul class="pager">
+                <li class="next"> <a href="https://www.ihewro.com/archives/807/" title="高考之后" data-toggle="tooltip"> 下一篇 </a></li>
+                <li class="previous"> <a href="https://www.ihewro.com/archives/758/" title="表情宝宝(v3.1)——一个表情包管理软件" data-toggle="tooltip"> 上一篇 </a></li>
+            </ul>
+        </nav>
+        <style>
+            textarea#comment {
+                background-image: url('../../Content/static/images/3b211dedea7e406a8acc528dd40695a2.gif');
+                background-color: #fafdff;
+            }
+        </style>
+        <div id="comments">
+            <h4 class="comments-title m-t-lg m-b">@comment.Count 条评论</h4><ol class="comment-list">
+                @if (commentmd.Count > 0)
+                {
+                    foreach (CommentModel item in commentmd)
+                    {
+                        <li id="@item.Commentmd.Id" class="comment-body comment-parent comment-even">
+                            <div id="div-comment-5260" class="comment-body">
+                                <a class="pull-left thumb-sm">
+                                    <img nogallery src="static/picture/5eaa1c06f64d41c99392c7317f8f5eb8.gif" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">
+                                </a>
+                                <div class="m-b m-l-xxl">
+                                    <div class="comment-meta">
+                                        <span class="comment-author vcard">
+                                            <b class="fn"><a href="https://essayulan.wordpress.com/" target="_blank" rel="external nofollow">@item.Membermd.Name</a></b>
+                                            @if (item.Commentmd.MemberId == post.postmd.MemberId)
+                                            {<label class="label bg-dark m-l-xs">楼主</label>}
+                                        </span>
+                                        <div class="comment-metadata">
+                                            <time class="format_time text-muted text-xs block m-t-xs" pubdate="pubdate" datetime="2018-07-04T22:41:47+08:00">@item.Commentmd.AddTime</time>
+                                        </div>
+                                    </div>
+                                    <div class="comment-content m-t-sm">
+                                        <span class="comment-author-at"><b></b></span>
+                                        <p class="my-content">@item.Commentmd.CommentContent</p>
+                                    </div>
+                                    <div class="comment-reply m-t-sm">
+                                        <a href="https://www.ihewro.com/archives/813/comment-page-1?replyTo=5274#respond-post-813" rel="nofollow" onclick="return TypechoComment.reply('@item.Commentmd.Id', '5260');">回复</a>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (item.childComments != null)
+                            {
+                                foreach (ClubChildComment cc in item.childComments)
+                                {
+                                    <div class="comment-children list-unstyled m-l-xxl">
+                                        <ol class="comment-list">
+                                            <li id="comment-5275" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                                <div id="div-comment-5275" class="comment-body">
+                                                    <a class="pull-left thumb-sm">
+                                                        <img nogallery src="static/picture/e0671747f9ca403da0b576e7e3d8b180.gif" class="avatar-40 photo img-circle" style="height:40px!important; width: 40px!important;">
+                                                    </a>
+                                                    <div class="m-b m-l-xxl">
+                                                        <div class="comment-meta">
+                                                            <span class="comment-author vcard">
+                                                                <b class="fn"><a href="http://www.ihewro.com/" target="_blank" rel="external nofollow">@cc.FromUserName</a></b>
+                                                                @if (cc.FromUserId == post.postmd.MemberId)
+                                                                {<label class="label bg-dark m-l-xs">楼主</label>}
+                                                            </span>
+                                                            <div class="comment-metadata">
+                                                                <time class="format_time text-muted text-xs block m-t-xs" pubdate="pubdate" datetime="2018-07-09T12:20:32+08:00">1 个月前</time>
+                                                            </div>
+                                                        </div>
+                                                        <div class="comment-content m-t-sm">
+                                                            <span class="comment-author-at"><b></b></span>
+                                                            <p class="my-content">@cc.CommentContent </p>
+                                                        </div>
+                                                        <!--<div class="comment-reply m-t-sm">
+                                                            <a href="https://www.ihewro.com/archives/813/comment-page-1?replyTo=5275#respond-post-813" rel="nofollow" onclick="return TypechoComment.reply('comment-5275', 5275);">回复</a>
+                                                        </div>-->
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                }
+                            }
+                        </li>
+                    }
+                }
+            </ol>
+            <nav class="text-center m-t-lg m-b-lg" role="navigation"></nav>
+            <div id="respond-post-813" class="layui-form respond comment-respond">
+                <h4 id="reply-title" class="comment-reply-title m-t-lg m-b">
+                    发表评论 <small class="cancel-comment-reply">
+                        <a id="cancel-comment-reply-link" href="https://www.ihewro.com/archives/813/#respond-post-813" rel="nofollow" style="display:none" onclick="return TypechoComment.cancelReply();">取消回复</a>
+                    </small>
+                </h4>
+                <div class="layui-form">
+                    <form id="form">
+                        <div class="layui-form-item comment-form-comment form-group">
+                            <label for="comment">评论 <span class="required text-danger">*</span></label>
+                            <textarea id="comment" class="textarea form-control OwO-textarea" name="CommentContent" rows="5" placeholder="说点什么吧……" onkeydown="if(event.ctrlKey&&event.keyCode==13){document.getElementById('submit').click();return false};"></textarea>
+                            <div class="OwO"></div>
+                        </div>
+                        <div class="layui-form-item form-group">
+                            <button class="layui-btn submit btn btn-success padder-lg" lay-filter="post" lay-submit>
+                                <span class="text">发表评论</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js{
+    <script type="text/javascript">
+        $(function () {
+            //emoji处理
+            var myContent = document.getElementsByClassName("my-content");
+            var n, m, o;
+            for (var i = 0; i < myContent.length; i++) {
+                var str = myContent[i].innerHTML;
+                for (n = 0; n < str.length - 1; n++) {
+                    if (str.charAt(n) == ":" && str.charAt(n + 1) == ":") {
+                        for (m = n + 2; m < str.length - 1; m++) {
+                            if (str.charAt(m) == ":") {
+                                for (o = m + 1; o < str.length - 1; o++) {
+                                    if (str.charAt(o) == ":" && str.charAt(o + 1) == ":") {
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                if (n < str.length - 1) {
+                    myContent[i].innerHTML = str.replace(str.substring(n, o + 2), "<img id=\"owo\" src =\"https://www.ihewro.com/usr/themes/handsome/usr/img/emotion/" + str.substring(n + 2, m) + "/" + str.substring(m + 1, o) + ".png\"/>");
+                } else {
+                }
+            }
+            //document.getElementById("my-content").innerHTML = "<img src=\"https://www.ihewro.com/usr/themes/handsome/usr/img/emotion/aru/despise.png\" />";
+
+            layui.use('form', function () {
+                var form = layui.form;
+                //监听提交
+                form.on('submit(post)', function (data) {
+                    $.ajax({
+                        url: "/Forum/AddComment?postId=@post.postmd.Id",
+                        data: data.field,
+                        type: "post",
+                        success: function (res) {
+                            if (res.success) {
+                                layer.msg('发表成功', { icon: 1 });
+                                setTimeout(location.reload(), 5000);
+                            } else {
+                                layer.msg(res.msg, { icon: 0 });
+                            }
+                        }
+                    });
+                    return false;
+                });
+            });
+
+                window.TypechoComment = {
+                    dom: function (id) { return document.getElementById(id); }, create: function (tag, attr) {
+                        var el = document.createElement(tag); for (var key in attr) { el.setAttribute(key, attr[key]); }
+                        return el;
+                    }, reply: function (cid, coid) {
+                        var comment = this.dom(cid), parent = comment.parentNode, response = this.dom('respond-post-813'), input = this.dom('comment-parent'), form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0], textarea = response.getElementsByTagName('textarea')[0]; if (null == input) {
+                            input = this.create('input', {
+                                'type': 'hidden', 'name': 'postCommentId', 'id': 'comment-parent'
+                            }); form.appendChild(input);
+                        }
+                        input.setAttribute('value', cid); if (null == this.dom('comment-form-place-holder')) {
+                            var holder = this.create('div', {
+                                'id': 'comment-form-place-holder'
+                            }); response.parentNode.insertBefore(holder, response);
+                        }
+                        comment.appendChild(response); this.dom('cancel-comment-reply-link').style.display = ''; if (null != textarea && 'text' == textarea.name) { textarea.focus(); }
+                        return false;
+                    }, cancelReply: function () {
+                        var response = this.dom('respond-post-813'), holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent'); if (null != input) { input.parentNode.removeChild(input); }
+                        if (null == holder) { return true; }
+                        this.dom('cancel-comment-reply-link').style.display = 'none'; holder.parentNode.insertBefore(response, holder); return false;
+                    }
+                };
+            });
+    </script>
+}

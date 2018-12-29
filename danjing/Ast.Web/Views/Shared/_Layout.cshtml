@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="keywords" content="星座">
+    <meta name="description" content="星座星语">
+    <title>星座星语网</title>
+    <link rel='stylesheet' id='owlcss-css' href='~/Content/static/css/owl.carousel.min.css' type='text/css' media='all' />
+    <link rel="stylesheet" href="~/Content/layuiadmin/layui/css/layui.css" type="text/css" />
+    <link rel='stylesheet' id='style-css' href='~/Content/static/css/style.css' type='text/css' media='all' />
+    <link rel="shortcut icon" href="~/Content/img/favicon.ico" type="image/x-icon">
+    <style type="text/css">
+        .friend-link li a:hover, .custom-carousel, .custom-carousel .owl-prev, .custom-carousel .owl-next, .site-record:hover, .post .post-title a:hover, #footer .footer-friends li a span:hover, #footer .footer-feature .footer-menu li a:hover, .widget-hotpost a:hover, .article-body a, .comments .comments-list .comment .comment-body .comment-user a, .comments .comments-list .comment .children .comment-user a, #comment-nav-below .nav-inside .current, .widget-hotpost-brief i, .archive-header .archive-header-title {
+            color: #ff1677;
+        }
+
+        .article-like .favorite, .carousel-info-meta .carousel-info-category, .tagcloud a:hover, .calendar_wrap table td a, .article-meta .article-meta-tags a, .article-support .article-support-button a, .comments #respond .form-submit input {
+            background-color: #ff1677;
+        }
+
+        .article-body h2, .article-body h3 {
+            border-left: 5px solid #ff1677;
+        }
+
+        .article-like .done {
+            border: 1px solid #ff1677;
+        }
+
+        .page-category-img:after {
+            opacity: 0.5;
+        }
+
+        .admin-login a:hover {
+            background-color: #ff1677;
+        }
+
+        .article-like .favorite {
+            box-shadow: 0 1px 10px #ff1677;
+        }
+        .hbox{
+            border-left:1px solid #eee;
+        }
+    </style>
+    <script>
+        var carouselSwitcher = "1";
+        var carouselOpacity = "10";
+        var carouselAnimation = "slide";
+        var carouselMouseSwitcher = "";
+        var fancyboxSwitcher = "1";
+        var isHomePage = "1";
+        var pagType = "number";
+        var layoutType = "four";
+    </script>
+</head>
+<body class="home blog" >
+    <header class="header">
+        <nav class="container">
+            <div class="logo hidden-sm">
+                <a href="/" class="d-block">
+                    <img src="../Content/static/picture/logo.png" alt="">
+                </a>
+            </div>
+            <div class="mobile-logo show-sm">
+                <a href="/" class="d-inline-block">
+                    <img src="../Content/static/picture/logo_mobile.png" alt="">
+                </a>
+            </div>
+            <ul id="" class="header-menu">
+                <li id="" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="">星座</a></li>
+                <li id="" class="menu-item menu-item-type-taxonomy menu-item-object-category "><a href="">运势</a></li>
+                <li id="" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="/Forum"><i class="czs-buy-l"></i>星社</a></li>
+                <li id="" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
+                    <a href="">占星学院</a>
+                    <ul class="sub-menu child-menu ">
+                        <li id="" class="menu-item menu-item-type-post_type menu-item-object-post">
+                            <a href=""><i class="czs-read-l"></i>占星师列表</a>
+                        </li>
+                        <li id="" class="menu-item menu-item-type-custom menu-item-object-custom">
+                            <a href=""><i class="czs-caomei"></i>占星课程</a>
+                        </li>
+                    </ul>
+                </li>
+                <li id="" class="menu-item menu-item-type-custom menu-item-object-custom"><a href=""><i class="czs-diamond-l"></i>星漫</a></li>
+            </ul>
+            <div class="admin-login hidden-sm">
+                @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    <a href="/PersonalCenter" class="btn-line btn-line-white">
+                        个人中心
+                    </a>
+                    <a href="/Login/LogOut" class="btn-line btn-line-white">
+                        退出
+                    </a>
+                }
+                else
+                {
+                    <a href="/Login/Index" class="btn-line btn-line-white">
+                        登录
+                    </a>
+                    <a href="/Login/Register" class="btn-line btn-line-white">
+                        注册
+                    </a>
+                }
+            </div>
+            <div class="search-button cursor-pointer">
+                <i class="czs-search-l"></i>
+                <span class="d-inline-block transition opacity-0"><i class="czs-close-l"></i></span>
+            </div>
+            <div class="menu-button">
+                <div class="nav-bar">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+        <div class="menu-wrap show-xs">
+            <div class="mobile-menu">
+                <ul id="" class="mobile-menu-nav">
+                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category">
+                        <a href="">文章</a>
+                    </li>
+                    <li class="menu-item menu-item-type-taxonomy menu-item-object-category">
+                        <a href="">星座</a>
+                    </li>
+                    <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                        <a href="https://item.taobao.com/item.htm?id=565267392328"><i class="czs-buy-l"></i>购买主题</a>
+                    </li>
+                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
+                        <a href="#">安装</a>
+                        <ul class="sub-menu child-menu">
+                            <li class="menu-item menu-item-type-post_type menu-item-object-post">
+                                <a href=""><i class="czs-read-l"></i>黑镜手册</a>
+                            </li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                                <a href=""><i class="czs-caomei"></i>草莓图标</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                        <a href="/PersonalCenter"><i class="czs-diamond-l"></i>个人主页</a>
+                    </li>
+                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children">
+                        <a href="#">个人主页</a>
+                        <ul class="sub-menu child-menu depth_0 ">
+                            <li class="menu-item menu-item-type-post_type menu-item-object-post">
+                                <a href="/PersonalCenter/profile">
+                                    <i class="czs-read-l"></i>我的资料
+                                </a>
+                            </li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                                <a href="/PersonalCenter/myArticle">
+                                    <i class="czs-caomei"></i>我的发帖
+                                </a>
+                            </li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                                <a href="http://chuangzaoshi.com/icon/">
+                                    <i class="czs-caomei"></i>我的相册
+                                </a>
+                            </li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                                <a href="http://chuangzaoshi.com/icon/">
+                                    <i class="czs-caomei"></i>我的账户
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="mobile-admin-login text-center mt-3">
+                <a href="/Login" class="btn-line btn-line-geek">
+                    登录
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="search-wrap transition">
+        <div class="container">
+            <div class="row">
+                <form role="search" method="get" action="http://heijing.chuangzaoshi.com/" class="header-search">
+                    <input data-url="Q0JCQg==" type="search" name="s" title="Search" placeholder="搜索..." value="">
+                </form>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+    <footer id="footer">
+        <div class="container" style="position: relative; margin-top: 22px;" data-position="5a3cd125c8ba25bc">
+            <div class="footer-theme hidden-xs">
+                <strong class="d-inline-block">黑镜主题<span class="hidden-xs">：</span></strong>
+                <span>为设计创意工作者而设计</span>
+            </div>
+            <div class="footer-feature">
+                <strong class="pull-left d-inline-block">功能菜单<span class="hidden-xs">：</span></strong>
+                <ul class="footer-menu">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="">关于我们</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="">归档</a></li>
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/PersonalCenter/Index">个人中心</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/Login/LogOut">退出</a></li>
+                    }
+                    else
+                    {
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/Login/Index">注册</a></li>
+                        <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/Login/Register">登录</a></li>
+                    }
+                </ul>
+            </div>
+            <ul class="footer-follow">
+                <li class="follow-wechat">
+                    <a>
+                        <i class="czs-weixin"></i>
+                    </a>
+                    <div class="follow-wechat-popup">
+                        <img src="../Content/static/picture/wechat_official_account.png" alt="wechat">
+                    </div>
+                </li>
+                <li class="follow-weibo">
+                    <a target="blank" href="">
+                        <i class="czs-weibo"></i>
+                    </a>
+                </li>
+                <li class="follow-qq">
+                    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=164903112" target=" ">
+                        <i class="czs-qq"></i>
+                    </a>
+                </li>
+                <li class="follow-rss">
+                    <a href="http://heijing.chuangzaoshi.com/feed/atom" target=" ">
+                        <i class="czs-rss"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="container">
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <p>
+                    Copyright © 2017-2018
+                    星座星语 V 1.0
+                    <span style="margin-right: 12px;" class="hidden-xs">
+                        <a class="site-record" target=" " href="" style="color: #818181;">
+                            闽ICP备1000000号-01
+                        </a>
+                    </span>
+                    <script>
+                    </script>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript" src="~/Content/static/js/jquery.min.js"></script>
+    <script type='text/javascript' src='~/Content/static/js/owl.carousel.min.js'></script>
+    <script type='text/javascript' src='~/Content/static/js/app.js'></script>
+    @RenderSection("js", required: false)
+</body>
+</html>

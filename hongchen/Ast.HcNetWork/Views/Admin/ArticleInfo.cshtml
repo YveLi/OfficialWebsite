@@ -1,0 +1,137 @@
+﻿@using Ast.Models;
+@{
+    Layout = "~/Views/Shared/_Info.cshtml";
+}
+@model Hc_ArticleList
+<style>
+    .imgtpl {
+        width: 150px;
+        height: 100px;
+        margin-right: 20px;
+        border: 1px solid #D2D2D2;
+        border-radius: 10px;
+        padding: 10px;
+    }
+</style>
+<div class="layui-form-item">
+    <label class="layui-form-label"></label>
+    <img id="imgurl1" class="avatar-lg center-block imgtpl" src="~/Content/img/avatar.jpg">
+    <span class="loading1"></span>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label"></label>
+    <div class="layui-inline">
+        <button class="layui-btn layui-btn-normal file" id="file1">上传主图</button>
+    </div>
+</div>
+<form class="layui-form" lay-filter="layuiform">
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>文章类型</label>
+        <div class="layui-input-inline">
+            <select id="MenuId" name="MenuId">
+                <option value="1">产品</option>
+                <option value="2">文章</option>
+            </select>
+        </div>
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>排序</label>
+        <div class="layui-input-inline">
+            <div class="layui-input-inline">
+                <input type="text" name="Sort" class="layui-input" value="@Model.Sort" />
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>标题</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="text" name="Title" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.Title">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>简介</label>
+        <div class="layui-input-block">
+            <input type="text" name="Brief" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.Brief">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>文章内容</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="HcContent" id="HcContent" placeholder="请输入内容" style="display:none">@Model.HcContent</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>作者</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Editor" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.Editor">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+        </div>
+    </div>
+</form>
+
+@section js{
+    <script>
+        $(function () {
+            var surl = "@Model.TopImg";
+            if (surl!="") {
+             $("#imgurl1").attr("src", surl);
+            }
+         layui.use(['layer', 'upload'], function () {
+            var layer = layui.layer, upload = layui.upload;
+            var uploadInst = upload.render({
+                elem: '.file' //绑定元素
+                , url: '/FileUpload/Upload' //上传接口
+                , method: 'post'
+                , size: 2048
+                , accept: 'jpg|png|gif'
+                , done: function (res) {
+                    if (res.status == 0) {
+                        var id = this.item[0].id.replace("file", "");
+                        $("#imgurl" + id).attr("src", res.url);
+                    } else {
+                        layer.msg(res.msg, { icon: 5 });
+                    };
+                }
+                , error: function () {
+                    avatarAdd.find('.loading1').hide();
+                }
+            });
+            });
+
+            $.ajaxSetup({ async: false });
+            adder.LayDate();
+            layui.use(['form', 'layedit'], function () {
+                var form = layui.form, layedit = layui.layedit;
+                layedit.set({
+                    uploadImage: {
+                        url: "/FileUpload/FileRecive" //接口url
+                        , type: "post"//默认post
+                    }
+                });
+                var editIndex = layedit.build('HcContent'); //建立编辑器,放在所有配置后
+                form.on('submit(form)', function (data) {
+                    data.field.TopImg = $("#imgurl1").attr("src");
+                    var contents = layedit.getContent(editIndex);
+                    data.field.HcContent = contents;
+                    $.post('/Admin/UpdateArticle', data.field, function (res) {
+                        if (res.success) {
+                            window.parent.adder.msg(1);
+                        } else {
+                            window.parent.adder.msg(0);
+                        }
+                        window.parent.init();
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                    return false;
+                });
+            });
+            adder.render();
+        });
+    </script>
+}
+

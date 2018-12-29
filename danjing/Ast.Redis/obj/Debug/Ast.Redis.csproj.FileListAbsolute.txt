@@ -1,0 +1,16 @@
+D:\Project\丹井\Ast.Redis\bin\Debug\Ast.Redis.exe.config
+D:\Project\丹井\Ast.Redis\bin\Debug\Ast.Redis.exe
+D:\Project\丹井\Ast.Redis\bin\Debug\Ast.Redis.pdb
+D:\Project\丹井\Ast.Redis\bin\Debug\ServiceStack.Common.dll
+D:\Project\丹井\Ast.Redis\bin\Debug\ServiceStack.Interfaces.dll
+D:\Project\丹井\Ast.Redis\bin\Debug\ServiceStack.Redis.dll
+D:\Project\丹井\Ast.Redis\bin\Debug\ServiceStack.Text.dll
+D:\Project\丹井\Ast.Redis\bin\Debug\ServiceStack.Common.xml
+D:\Project\丹井\Ast.Redis\bin\Debug\ServiceStack.Interfaces.xml
+D:\Project\丹井\Ast.Redis\bin\Debug\ServiceStack.Redis.xml
+D:\Project\丹井\Ast.Redis\bin\Debug\ServiceStack.Text.xml
+D:\Project\丹井\Ast.Redis\obj\Debug\Ast.Redis.csprojAssemblyReference.cache
+D:\Project\丹井\Ast.Redis\obj\Debug\Ast.Redis.csproj.CoreCompileInputs.cache
+D:\Project\丹井\Ast.Redis\obj\Debug\Ast.Redis.csproj.CopyComplete
+D:\Project\丹井\Ast.Redis\obj\Debug\Ast.Redis.exe
+D:\Project\丹井\Ast.Redis\obj\Debug\Ast.Redis.pdb

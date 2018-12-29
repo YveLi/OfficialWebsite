@@ -1,0 +1,257 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/lib/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" />
+<div class="layui-fluid layui-anim layui-anim-upbit layui-col-md12">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md3">
+            <div class="layui-card ">
+                <div class="layui-card-body">
+                    <blockquote class="layui-elem-quote layui-elem-black">
+                        职位
+                        <div class="layui-inline" style="float:right">
+                            <a class="layui-btn layui-btn-xs layui-btn-purple" onclick="openPost('职位维护')"><i class="layui-icon layui-icon-edit"></i>职位维护</a>
+                            @*<a class="layui-btn layui-btn-xs layui-btn-black" onclick="openCity(0,'新增部门')"><i class="layui-icon layui-icon-add-1"></i></a>
+                                <a class="layui-btn layui-btn-xs layui-btn-normal" onclick="update('编辑部门')"><i class="layui-icon layui-icon-edit"></i></a>
+                                <a class="layui-btn layui-btn-xs layui-btn-red" onclick="delpost()"><i class="layui-icon layui-icon-delete"></i></a>*@
+                        </div>
+                    </blockquote>
+                    <div class="layui-form">
+                        <div class="layui-form-item">
+                            <ul id="tree" class="ztree"></ul>
+                            <input id="nodeid" type="hidden" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md9">
+            <div class="layui-card ">
+                <div class="layui-card-body">
+                    <blockquote class="layui-elem-quote layui-elem-black">
+                        <a class="layui-btn layui-btn-xs layui-btn-black" id="menuname"></a>
+                        <div class="layui-inline" style="float:right">
+                            <a class="layui-btn layui-btn-xs layui-btn-purple" onclick="openFuncMenu('按钮权限维护')"><i class="layui-icon layui-icon-engine"></i>按钮权限维护</a>
+                            <a class="layui-btn layui-btn-xs layui-btn-black" onclick="openMenu()"><i class="layui-icon layui-icon-add-1"></i>新增菜单</a>
+                            <a class="layui-btn layui-btn-xs layui-btn-normal" onclick="updatemenu('编辑菜单')"><i class="layui-icon layui-icon-edit"></i>编辑菜单</a>
+                            <a class="layui-btn layui-btn-xs layui-btn-suc" onclick="saveNodes()"><i class="layui-icon layui-icon-edit"></i>保存权限</a>
+                        </div>
+                    </blockquote>
+                    <div class="layui-form">
+                        <div class="layui-form-item">
+                            <ul id="Menutree" class="ztree"></ul>
+                            <input id="Menunodeid" type="hidden" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section js{
+    <script src="~/Content/lib/zTree/js/jquery.ztree.all.js"></script>
+    <script>
+        $(function () {
+            $.ajaxSetup({ async: false });
+            inittree();
+            initMenutree(null, null);
+        });
+        function init() {
+            inittree();
+            initMenutree(null, null);
+        }
+        function initMenutree(menuid, menufunc) {
+            $("#Menutree").empty();
+            $.getJSON("/Sys/GetMenuList", {}, function (nodes) {
+                var setting = {
+                    view: {
+                        dblClickExpand: false,//双击节点时，是否自动展开父节点的标识
+                        showLine: false,//是否显示节点之间的连线
+                        selectedMulti: true //设置是否允许同时选中多个节点
+                    },
+                    check: {
+                        chkboxType: { "Y": "ps", "N": "" },
+                        chkStyle: "checkbox",//复选框类型
+                        enable: true //每个节点上是否显示 CheckBox
+                    },
+                    data: {
+                        simpleData: {//简单数据模式
+                            enable: true,
+                            idKey: "Id",
+                            pIdKey: "ParentId",
+                            rootPId: null
+                        },
+                        key: {
+                            name: "MenuName",
+                            children: "Children",
+                            checked: "Checked"
+                        }
+                    },
+                    callback: {
+                        onClick: initMenu,
+                    }
+                };
+                if (menuid != null) {
+                    var arr = menuid.split(',');
+                    $.each(nodes, function (x, y) {
+                        $.each(arr, function (m, n) {
+                            if (n == y.Id) {
+                                y.Checked = true;
+                            }
+                        });
+                        $.each(y.Children, function (m, n) {
+                            $.each(arr, function (j, k) {
+                                if (k == n.Id) {
+                                    n.Checked = true;
+                                }
+                            });
+                        });
+                    });
+                } else {
+                    $("#menuname").text("菜单-按钮 权限");
+                }
+                if (menufunc != null) {
+                    var arr1 = menufunc.split(',');
+                    $.each(nodes, function (x, y) {
+                        $.each(y.Children, function (m, n) {
+                            $.each(n.Children, function (a, b) {
+                                $.each(arr1, function (j, k) {
+                                    var pid = k.split('|');
+                                    if (pid[1] == b.Id && b.ParentId == pid[0]) {
+                                        b.Checked = true;
+                                    }
+                                });
+                            })
+                        });
+                    });
+                }
+                zTreeObj = $.fn.zTree.init($("#Menutree"), setting, nodes);
+                zTreeObj.expandAll(true);
+            });
+        }
+        function initMenu(event, treeId, treeNode) {
+            if (treeNode != undefined) {
+                $("#Menunodeid").val(treeNode.Id);
+            }
+        }
+        function openMenu() {
+            var dialog = {
+                title: '新增菜单', // 窗口名称
+                area: ['60%', '80%'], //宽高
+                url: "/Sys/MenuInfo?id=0"
+            }
+            adder.dialog(dialog);
+        }
+        function updatemenu(title) {
+            var id = $("#Menunodeid").val();
+            if (id == "") {
+                layui.use('layer', function () {
+                    layer.open({
+                        title: '警告'
+                        , content: '请选择要修改菜单名称！'
+                    });
+                });
+                return false;
+            } else {
+                var dialog = {
+                    title: title, // 窗口名称
+                    area: ['60%', '80%'], //宽高
+                    url: "/Sys/MenuInfo?id=" + id
+                }
+                adder.dialog(dialog);
+            }
+        }
+        function inittree() {
+            $("#tree").empty();
+            $.getJSON("/Sys/GetPostList", {}, function (nodes) {
+                var setting = {
+                    view: {
+                        dblClickExpand: false,//双击节点时，是否自动展开父节点的标识
+                        showLine: false,//是否显示节点之间的连线
+                        selectedMulti: false //设置是否允许同时选中多个节点
+                    },
+                    check: {
+                        chkboxType: { "Y": "", "N": "" },
+                        chkStyle: "checkbox",//复选框类型
+                        enable: false //每个节点上是否显示 CheckBox
+                    },
+                    data: {
+                        simpleData: {//简单数据模式
+                            enable: true,
+                            idKey: "Id",
+                            rootPId: null
+                        },
+                        key: {
+                            name: "PostName"
+                        }
+                    },
+                    callback: {
+                        onClick: inittable,
+                    }
+                };
+                zTreeObj = $.fn.zTree.init($("#tree"), setting, nodes);
+                zTreeObj.expandAll(true);
+            });
+        }
+        function inittable(event, treeId, treeNode) {
+            if (treeNode != undefined) {
+                $("#nodeid").val(treeNode.Id);
+                initMenutree(treeNode.MenuId, treeNode.MenuFunc);
+                $("#menuname").text(treeNode.PostName + " 菜单-按钮 权限");
+            }
+        }
+        function saveNodes() {
+            var nodeid = $("#nodeid").val();
+            if (nodeid == "") {
+                layui.use('layer', function () {
+                    layer.open({
+                        title: '警告'
+                        , content: '请选择职位！'
+                    });
+                });
+                return false;
+            } else {
+                var treeObj = $.fn.zTree.getZTreeObj("Menutree");
+                var nodes = treeObj.getCheckedNodes(true);
+                var arr = "";
+                var arr1 = "";
+                $.each(nodes, function (x, y) {
+                    if (y.ParentId != null && y.MenuFunction == null) {
+                        arr1 += y.ParentId + "|" + y.Id + ",";
+                    }
+                    else {
+                        arr += y.Id + ",";
+                    }
+                });
+                $.post('/Sys/SaveNodes', { id: nodeid, menuids: arr.substring(0, arr.length - 1), menufunc: arr1.substring(0, arr1.length - 1) }, function (res) {
+                    if (res != "") {
+                        layer.msg(res, { icon: 2 });
+                    } else {
+                        layer.msg("保存成功！", { icon: 1, time: 1200 }, function () {
+                            init();
+                        });
+                    }
+                });
+            }
+        }
+        function openPost(title) {
+            var dialog = {
+                title: title, // 窗口名称
+                area: ['80%', '80%'],
+                url: "/Users/Post"
+            }
+            adder.dialog(dialog);
+        }
+
+        function openFuncMenu(t) {
+            var dialog = {
+                title: t, // 窗口名称
+                area: ['50%', '60%'],
+                url: "/Sys/FuncMenuIndex"
+            }
+            adder.dialog(dialog);
+        }
+    </script>
+}

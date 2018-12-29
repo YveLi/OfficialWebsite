@@ -1,0 +1,160 @@
+﻿@{
+    Layout = "~/Views/Shared/_Info.cshtml";
+}
+@model Ast.Models.Hc_WebSetting
+<style>
+    .imgtpl {
+        width: 150px;
+        height: 100px;
+        margin-right: 20px;
+        border: 1px solid #D2D2D2;
+        border-radius: 10px;
+        padding: 10px;
+    }
+</style>
+<div class="layui-form-item">
+    <label class="layui-form-label"></label>
+    <img id="imgurl0" class="avatar-lg center-block imgtpl" src="~/Content/img/avatar.jpg">
+    <img id="imgurl1" class="avatar-lg center-block imgtpl" src="~/Content/img/avatar.jpg">
+    <img id="imgurl2" class="avatar-lg center-block imgtpl" src="~/Content/img/avatar.jpg">
+    <span class="loading1"></span>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label"></label>
+    <div class="layui-inline">
+        <button class="layui-btn layui-btn-normal file" id="file0">上传首页Logo</button>
+        <button class="layui-btn layui-btn-normal file" id="file1">上传Logo</button>
+        <button class="layui-btn layui-btn-normal file" id="file2">上传Wechat</button>
+    </div>
+</div>
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">网站名称</label>
+        <div class="layui-input-inline">
+            <input type="hidden" id="Wechat" name="Wechat" value="" />
+            <input type="hidden" id="IndexLogo" name="IndexLogo" value="" />
+            <input type="hidden" id="Logo" name="Logo" value="" />
+            <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+            <input type="text" name="Name" value="@Model.Name" required lay-verify="required" placeholder="网站名称" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">全称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="FullName" value="@Model.FullName" required lay-verify="required" placeholder="全称" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">QQ</label>
+        <div class="layui-input-inline">
+            <input type="text" name="QQ" value="@Model.QQ" required lay-verify="required" placeholder="QQ" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">微博</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Weibo" value="@Model.Weibo" required lay-verify="required" placeholder="微博链接" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">客户热线</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Tel" value="@Model.Tel" required lay-verify="required" placeholder="客户热线" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">备案号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="BeiAnNo" value="@Model.BeiAnNo" required lay-verify="required" placeholder="备案号" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Email" value="@Model.Email" required lay-verify="required" placeholder="邮箱" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="Adderss" value="@Model.Adderss" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">简介</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" placeholder="请填写简介" name="Memo" autocomplete="off">@Model.Memo</textarea>
+        </div>
+    </div>
+    <blockquote class="layui-elem-quote" style="background:#fff">
+        SEO配置
+    </blockquote>
+    <div class="layui-form-item">
+        <label class="layui-form-label">关键词</label>
+        <div class="layui-input-block">
+            <input type="text" name="SEOKeywords" value="@Model.SEOKeywords" required lay-verify="required" placeholder="请用英文逗号分开" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">描述</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" placeholder="请填写网站描述" name="SEODescription" autocomplete="off">@Model.SEODescription</textarea>
+        </div>
+    </div>
+    <hr>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+@section js{
+    <script>
+        $(function () {
+            var index = "@Model.IndexLogo";
+            if (index != "") {
+                $("#imgurl0").attr("src", index);
+                $("#IndexLogo").val(index);
+            }
+            var surl = "@Model.Logo";
+            if (surl!="") {
+             $("#imgurl1").attr("src", surl);
+             $("#Logo").val(surl);
+            }
+             var surl1 = "@Model.Wechat";
+             if (surl1!="") {
+                 $("#imgurl2").attr("src", surl1);
+                 $("#Wechat").val(surl1);
+            }
+         layui.use(['layer', 'upload'], function () {
+            var layer = layui.layer, upload = layui.upload;
+            var uploadInst = upload.render({
+                elem: '.file' //绑定元素
+                , url: '/FileUpload/Upload' //上传接口
+                , method: 'post'
+                , size: 2048
+                , accept: 'jpg|png|gif'
+                , done: function (res) {
+                    if (res.status == 0) {
+                        var id = this.item[0].id.replace("file", "");
+                        $("#imgurl" + id).attr("src", res.url);
+                    } else {
+                        layer.msg(res.msg, { icon: 5 });
+                    };
+                }
+                , error: function () {
+                    avatarAdd.find('.loading1').hide();
+                }
+            });
+            });
+
+         layui.use(['form'], function () {
+             var form = layui.form;
+             form.on('submit(form)', function (data) {
+                 var indexlogo = $("#imgurl0").attr("src");
+                    var logo = $("#imgurl1").attr("src");
+                    var wechat = $("#imgurl2").attr("src");
+                    data.field.IndexLogo = indexlogo;
+                    data.field.Logo = logo;
+                    data.field.Wechat = wechat;
+                    $.post('@Url.Action("WebSetUpdate", "Admin")', data.field, function (res) {
+                        adder.msg(1);
+                    });
+                    return false;
+                });
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,6 @@
+D:\Project\Ast\Ast.Models\bin\Debug\Ast.Models.dll
+D:\Project\Ast\Ast.Models\bin\Debug\Ast.Models.pdb
+D:\Project\Ast\Ast.Models\obj\Debug\Ast.Models.csprojAssemblyReference.cache
+D:\Project\Ast\Ast.Models\obj\Debug\Ast.Models.csproj.CoreCompileInputs.cache
+D:\Project\Ast\Ast.Models\obj\Debug\Ast.Models.dll
+D:\Project\Ast\Ast.Models\obj\Debug\Ast.Models.pdb

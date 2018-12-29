@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_WebLayout.cshtml";
+    var mymenu = ViewBag.mymenu as Ast.Models.Hc_WebMenu;
+}
+<div class="banner">
+    <div class="banner-table" style="background-image:url('@mymenu.Img');background-repeat: no-repeat;background-position: bottom;">
+        <div class="banner-table-cell" id="to-table-cell">
+            <h1>@mymenu.ThemeName</h1>
+            <h2>@mymenu.EnThemeName</h2>
+        </div>
+    </div>
+</div>
+<div class="login-container">
+    <div class="form-container" style="width:300px;">
+        <div class="form-title" style="background-color:#13c173;height:3.5rem;line-height:3.5rem;border-top-left-radius:10px;border-top-right-radius:10px;text-align:center;color:#fff">账号密码登录</div>
+        <div style="padding:2rem;    padding: 2rem 2rem 1rem 2rem;
+    border: 1px #eee solid;border-bottom-left-radius:10px;border-bottom-right-radius:10px;background-color:#fff;">
+            <form>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="账号">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default" style="width: 100%;
+    background-color: #13c173;color:#fff;border:0;">
+                        登录
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="login-left" id="login-left"></div>
+</div>
+@section js{
+    <script>
+        $(document).ready(function () {
+            if ($(window).width() < 768) {
+                document.getElementById("nav-container").style.backgroundColor = "transparent";
+                document.getElementById("nav-wrap").style.backgroundImage = "url(../../Content/img/sangang.png)";
+                document.getElementById("to-table-cell").style.padding = "0 50px";
+                document.getElementById("login-left").style.display = "none";
+            }
+        });
+    </script>
+}

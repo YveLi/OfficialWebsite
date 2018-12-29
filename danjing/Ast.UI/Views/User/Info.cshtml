@@ -1,0 +1,74 @@
+﻿@using Ast.Models;
+@{
+    var schoollist = ViewBag.school as IList<SchoolList>;
+    Layout = "~/Views/Shared/_Info.cshtml";
+}
+@model Users
+
+<form class="layui-form" lay-filter="layuiform">
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>名称</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="text" name="UserName" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.UserName">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>学校类型</label>
+        <div class="layui-input-inline">
+            <select id="School" name="School">
+                @if (schoollist.Count > 0)
+                {
+                    foreach (var item in schoollist)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <label class="layui-form-label col-sm-3"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>年龄</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Age" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.Age">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" placeholder="请输入通知内容" id="Memo" name="Memo" autocomplete="off">@Model.Memo</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+        </div>
+    </div>
+</form>
+
+@section js{
+    <script>
+        var editIndex1;
+        $(function () {
+            $.ajaxSetup({ async: false });
+            adder.LayDate();
+            $("#School").val(@Model.School);
+            layui.use(['form', 'layedit'], function () {
+                var form = layui.form, layedit = layui.layedit;
+                form.on('submit(form)', function (data) {
+                    $.post('/User/Update', data.field, function (res) {
+                        if (res == "1") {
+                            window.parent.adder.msg(1);
+                        } else {
+                            window.parent.adder.msg(0);
+                        }
+                        window.parent.init();
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                    return false;
+                });
+            });
+            adder.render();
+        });
+    </script>
+}
+

@@ -1,0 +1,12 @@
+﻿body{
+    font-family:"PingFang SC","Lantinghei SC","Microsoft YaHei","HanHei SC","Helvetica Neue","Open Sans",Arial,"Hiragino Sans GB","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;
+}
+div#login_container{
+    height:270px;
+}
+.impowerBox .qrcode {width: 216px;border:1px solid transparent;}
+.impowerBox .title {display: none;}
+.impowerBox .info {width: 210px;}
+.status_icon {display:none;}
+.impowerBox .status {text-align: center;margin-top: -10px;}
+.impowerBox .icon38_msg{display: none;}

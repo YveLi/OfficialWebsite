@@ -1,0 +1,14 @@
+D:\Project\Ast\Ast.Common\bin\Debug\Ast.Common.dll.config
+D:\Project\Ast\Ast.Common\bin\Debug\Ast.Common.dll
+D:\Project\Ast\Ast.Common\bin\Debug\Ast.Common.pdb
+D:\Project\Ast\Ast.Common\bin\Debug\log4net.dll
+D:\Project\Ast\Ast.Common\bin\Debug\Newtonsoft.Json.dll
+D:\Project\Ast\Ast.Common\bin\Debug\SqlSugar.dll
+D:\Project\Ast\Ast.Common\bin\Debug\SyntacticSugar.dll
+D:\Project\Ast\Ast.Common\bin\Debug\log4net.xml
+D:\Project\Ast\Ast.Common\bin\Debug\Newtonsoft.Json.xml
+D:\Project\Ast\Ast.Common\obj\Debug\Ast.Common.csprojAssemblyReference.cache
+D:\Project\Ast\Ast.Common\obj\Debug\Ast.Common.csproj.CoreCompileInputs.cache
+D:\Project\Ast\Ast.Common\obj\Debug\Ast.Common.csproj.CopyComplete
+D:\Project\Ast\Ast.Common\obj\Debug\Ast.Common.dll
+D:\Project\Ast\Ast.Common\obj\Debug\Ast.Common.pdb

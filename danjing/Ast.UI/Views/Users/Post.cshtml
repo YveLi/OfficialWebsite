@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Post";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="layui-fluid layui-anim layui-anim-upbit">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <div class="layui-form-query layui-form">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <input type="text" id="query" class="layui-input query" />
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn" type="button" onclick="init()"><i class="layui-icon">&#xe615;</i>查询</button>
+                        <button class="layui-btn" topTitle="新增职位" onclick="openDialog(0,'新增职位')" style="background:#333">
+                            <i class="layui-icon">&#xe654;</i>新增
+                        </button>
+                        @*<button class="layui-btn layui-btn-normal" topTitle="编辑职位" onclick="update('编辑职位')">
+                                <i class="layui-icon">&#xe642;</i>编辑
+                            </button>*@
+                        <button class="layui-btn layui-btn-danger" onclick="batchDel()">
+                            <i class="layui-icon">&#xe640;</i>删除
+                        </button>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <table id="datagrid" lay-filter="datagrid" lay-size="sm"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section js{
+    @*工具栏模版*@
+    <script type="text/html" id="bar">
+        @*<a class="layui-btn layui-btn-xs" title="详情" onclick="openDetail({{ d.Id }},'详情')">详情</a>*@
+        <a class="layui-btn layui-btn-xs layui-btn-normal" title="编辑" onclick="openDialog({{ d.Id }},'编辑')">编辑</a>
+        <a class="layui-btn layui-btn-xs layui-btn-danger" title="删除" onclick="del({{ d.Id }})">删除</a>
+    </script>
+    @*执行状态模板*@
+    <script type="text/html" id="deltpl">
+        {{# var status=d.is_delete }}
+        {{# if (status==0){ }}
+        <span class="layui-badge layui-bg-blue" style="font-size:13px">启用</span>
+        {{# } else{ }}
+        <span class="layui-badge" style="font-size:13px">禁用</span>
+        {{# } }}
+    </script>
+
+    <script type="text/html" id="nametpl">
+        <a class="layui-badge layui-bg-cyan" style="cursor:pointer">{{ d.PostName }}</a>
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            adder.LayDate();
+            init();
+        });
+
+        function init() {
+            var query = $("#query").val();
+            var url = "query=" + query;
+            var cols = [[
+                { fixed: 'left', checkbox: true, LAY_CHECKED: false }
+                , { fixed: 'left', title: '操作', templet: "#bar", width: 120 }
+                , { field: 'PostNo', title: '编号', sort: true }
+                , { field: 'PostName', title: '名称', templet: "#nametpl"}
+                , { field: 'PostDesc', title: '简介'  }
+                , { field: 'AddTime', title: '创建日期', templet: '<div>{{adder.dateformat(d.AddTime)}}</div>'}
+            ]];
+            adder.loadlist({ url: "/Users/GetPostList?" + url, cols: cols });
+        }
+
+        //打开窗口
+        function openDialog(id, title) {
+            var dialog = {
+                title: title, // 窗口名称
+                area: ["60%", "40%"],
+                url: "/Users/PostInfo?id=" + id
+            }
+            adder.dialog(dialog);
+        }
+        //批量删除
+        function batchDel() {
+            var data = { url:"/Users/PostDel"};
+            adder.batchDel(data);
+        }
+
+    </script>
+}
+

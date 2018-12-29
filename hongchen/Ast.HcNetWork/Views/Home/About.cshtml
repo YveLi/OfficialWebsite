@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "~/Views/Shared/_WebLayout.cshtml";
+    var webset = ViewBag.webset as Ast.Models.Hc_WebSetting;
+    var prolist = ViewBag.prolist as IList<Ast.Models.Hc_ArticleList>;
+    var mymenu = ViewBag.mymenu as Ast.Models.Hc_WebMenu;
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <style>
+        .product {
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            margin-bottom: 2rem;
+        }
+
+            .product:last-child {
+                margin-bottom: 6rem;
+            }
+
+        .img-container {
+            height: 120px;
+            width: 120px;
+            border-radius: 20px;
+            background-size: 100%;
+            float: left;
+            margin: 0 1rem 0 0
+        }
+
+        .product .go-product {
+            text-align: right;
+            color: #13c173;
+        }
+        .mask {
+            position: fixed;
+            left: 0;
+            top:0;
+            z-index: 999;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+        }
+
+        .mask-content {
+            width: 250px;
+            height: 250px;
+            background-color: #fff;
+            border-radius: 10px;
+            vertical-align: middle;
+            overflow: hidden;
+        }
+        .mask-content img{
+            width:250px;
+        }
+    </style>
+</head>
+<body>
+    <script src="~/Content/js/jquery-2.1.1.min.js"></script>
+    <!-- carousel -->
+    <div class="banner">
+        <div class="banner-table" style="background-image:url('@mymenu.Img');background-repeat: no-repeat;background-position: bottom;">
+            <div class="banner-table-cell" id="to-table-cell">
+                <h1>@mymenu.ThemeName</h1>
+                <h2>@mymenu.EnThemeName</h2>
+            </div>
+        </div>
+    </div>  <!-- end carousel -->
+    <div class="company-about clearfix">
+        <div class="container mt50 about-info">
+            <div class="row">
+                <div class="col-md-12">
+                    <!--<h2>@webset.FullName</h2>-->
+                    <p style="text-align:left">
+                        &nbsp; &nbsp; &nbsp;@Html.Raw(webset.Memo)
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class=" mt50 mb50 about-info">
+            @foreach (var item in prolist)
+            {
+                <div class="col-md-12 product" onclick="$('#mask-@prolist.IndexOf(item)').show()">
+                    <div class="img-container" style="background-image: url('@item.TopImg');"></div>
+                    <div class="detail">
+                        <p style="text-align:left">
+                            &nbsp; &nbsp; &nbsp; @item.Brief
+                        </p><p class="go-product" style="color: #13c173;bottom:0">访问产品 <span style="font-weight:bold">></span></p>
+                    </div>
+                </div>
+                //弹窗
+                <div class="mask" id="mask-@prolist.IndexOf(item)" onclick="$('#mask-@prolist.IndexOf(item)').hide()">
+                    <div class="mask-content">
+                        @Html.Raw(item.HcContent)
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+@section js{
+    <script>
+        $(document).ready(function () {
+            if ($(window).width() < 768) {
+                document.getElementById("nav-container").style.backgroundColor = "transparent";
+                document.getElementById("nav-wrap").style.backgroundImage = "url(../../Content/img/sangang.png)";
+                document.getElementById("to-table-cell").style.padding = "0 50px";
+            }
+        });
+    </script>
+}
+    </body>
+</html>

@@ -1,0 +1,112 @@
+﻿@using Ast.Models;
+@{
+    Layout = "~/Views/Shared/_Info.cshtml";
+}
+@model AstgList
+
+<form class="layui-form" lay-filter="layuiform">
+    <div class="layui-form-item">
+        <label class="layui-form-label" id="sendname"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>申请人</label>
+        <div class="layui-input-inline">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="text" class="layui-input" value="@Model.SendUserName" />
+        </div>
+        <label class="layui-form-label" id="sendtime"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>申请时间</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" value="@Model.AddTime.ToString("yyyy-MM-dd")" />
+        </div>
+    </div>
+    <div class="layui-form-item" id="msgcont">
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>消息内容</label>
+        <div class="layui-input-block">
+            <div class="layui-textarea">@Html.Raw(Model.MsgContent)</div>
+        </div>
+    </div>
+    <div class="layui-form-item" id="msg">
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>审批意见</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入审批意见" class="layui-textarea" id="FlowMsg" name="FlowMsg">@Model.FlowMsg</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item" id="msg1">
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>审批意见</label>
+        <div class="layui-input-block">
+            <div class="layui-textarea">@Html.Raw(Model.FlowMsg)</div>
+        </div>
+    </div>
+    <hr>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <a class="layui-btn  layui-btn-suc" id="agree" onclick="agree()">通过</a>
+            <a class="layui-btn  layui-btn-redx" id="unagree" onclick="unagree()">不通过</a>
+            <button class="layui-btn  layui-btn-black" lay-submit lay-filter="form" id="read">已阅</button>
+            <a class="layui-btn layui-btn-normal" onclick="Closewin()">退出</a>
+        </div>
+    </div>
+</form>
+
+@section js{
+    <script>
+        $(function () {
+            $.ajaxSetup({ async: false });
+            var type = adder.getQuery("type");
+            if (type == "1") {
+                $("#read").hide();
+                $("#unagree").show();
+                $("#agree").show();
+                $("#msg1").hide();
+            } else if (type == "2") {
+                $("#msgcont").hide()
+                $("#msg").hide();
+                $("#msg1").show();
+                $("#unagree").hide();
+                $("#agree").hide();
+                $("#sendname").text("审批人");
+                $("#sendtime").text("审批时间");
+            } else {
+                $("#msg").hide();
+                $("#read").show();
+                $("#unagree").hide();
+                $("#agree").hide();
+                $("#msg").hide();
+                $("#msg1").hide();
+            }
+            layui.use(['form'], function () {
+                var form = layui.form;
+                form.on('submit(form)', function (data) {
+                    $.post('../Common/MsgUpdate', data.field, function (res) {
+                        window.parent.adder.msg(1);
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                    return false;
+                });
+            });
+        });
+        function agree() {
+            $.post("../Group/ReviewApply", {
+                msgid:@Model.Id, quoteid:@Model.FlowId, status: 1, msg: $("#FlowMsg").val(), userid:"@Model.SendUser",username:"@Model.SendUserName"}, function(res) {
+                if (res=="1") {
+                    adder.msg(1);
+                } else {
+                    adder.msg(0);
+                }
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);
+            });
+        }
+         function unagree() {
+             $.post("../Group/ReviewApply", {
+                 msgid:@Model.Id, quoteid:@Model.FlowId, status: 2, msg: $("#FlowMsg").val(), userid:"@Model.SendUser", username:"@Model.SendUserName"}, function(res) {
+                if (res=="1") {
+                    adder.msg(1);
+                } else {
+                    adder.msg(0);
+                 }
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.layer.close(index);
+            });
+        }
+    </script>
+}
+

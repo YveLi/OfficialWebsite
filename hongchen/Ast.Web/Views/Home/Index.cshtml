@@ -1,0 +1,149 @@
+﻿@using Ast.Web.Models
+@using Ast.Models
+@{
+    ViewBag.Title = "主页";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var articleModel = ViewBag.articleModel as IList<ArticleModel>;
+    var typeList = ViewBag.typeList as IList<ArticleTypeList>;
+    var bannerList = ViewBag.bannerList as IList<BannerList>;
+}
+<div class="carousel-wrap">
+    <div class="container no-gutter-xs">
+        <div id="carousel" class="owl-carousel">
+            @if (bannerList != null)
+            {
+                foreach (var item in bannerList)
+                {
+                    <!-- customize carousel-->
+                    <a class="carousel-item" target="blank" href="@item.Url" title="" rel="carousel">
+                        <img src="@item.ImgUrl" alt="@item.memo">
+                        <div class="carousel-info vertical-middle ">
+                            <div class="carousel-info-title">
+                            </div>
+                        </div>
+                        <div class="carousel-overlay"></div>
+                    </a>
+                }
+            }
+        </div>
+    </div>
+</div>
+<div class="shot mb-6">
+    <div class="container">
+        <div class="row shot-wrap">
+            <ul class="shot-type">
+                <li class="" data-type="hot">热门</li>
+                <li class="active" data-type="latest">最新</li>
+                <li class="" data-type="hot-comment">热评</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="recommend">
+</div>
+
+<div class="category-wrap mb-6">
+    <div class="container ps-r">
+        <ul class="category-nav pr-6">
+            <li>
+                <a class="type active" href="" id="all" data-type="all" onclick="ArticleType(all)"> 全部 </a>
+            </li>
+            @if (typeList != null)
+            {
+                for (var n = 1; n <= typeList.Count; n++)
+                {
+                    <li>
+                        <a class="type" data-type="uikit" id="@n" onclick="ArticleType(@n)">
+                            @typeList[n - 1].Name
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+        <div class="layout-type-wrap ps-a hidden-xs">
+            <!--<a class="btn-layout-type p-4">
+                <i class="czs-layout-grid"></i>
+            </a>-->
+            <div class="layout-type ps-a px-1">
+                <ul>
+                    <li data-type="three" class="p-2 ">3</li>
+                    <li data-type="four" class="p-2 active">4</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="container" id="main">
+    <div class="row">
+        <div class="post-wrap">
+            @if (articleModel != null)
+            {
+                foreach (var item in articleModel)
+                {
+                    <div class="col-md-6 col-sm-6 col-lg-4 col-xl-3">
+                        <div class="post post-style-card transition">
+                            <a class="post-img img-response" href="/Home/Detail?id=@item.Articlemd.Id" style="background-image: url(../Content/static/images/1.png)">
+                            </a>
+                            <div class="post-top">
+                                <div class="post-title mb-1">
+                                    <a href="http://heijing.chuangzaoshi.com/archives/61">@item.Articlemd.Title</a>
+                                </div>
+                                <div class="post-top-meta mb-3">
+                                    <a class="post-category" href="http://heijing.chuangzaoshi.com/archives/category/design/ux">
+                                        @item.Typemd.Name
+                                    </a>
+                                    <span class="post-time">
+                                        @item.Articlemd.AddTime
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <ul class="post-meta-bottom">
+                                    <li class="post-meta-author">
+                                        <a class="d-block" href="http://heijing.chuangzaoshi.com/archives/author/designer" target="_blank">
+                                            <img alt='' src='../Content/static/picture/avatar_user_1_1500356034-96x96.png' srcset='http://heijing.chuangzaoshi.com/wp-content/uploads/2017/07/avatar_user_1_1500356034-96x96.png 2x' class='avatar avatar-96 photo' height='96' width='96' />            <span class="d-inline-block">@item.Articlemd.Editor</span>
+                                        </a>
+                                    </li>
+                                    <li class="post-meta-view pull-right">
+                                        <i class="czs-eye"></i> @item.Articlemd.ReadNum
+                                    </li>
+                                    <li class="post-meta-comments pull-right">
+                                        <i class="czs-comment"></i> @item.Articlemd.CommentNum
+                                    </li>
+                                    <!--
+                                    <li class="post-meta-like pull-right">
+                                        <i class="czs-heart"></i>
+                                        <span class="count">
+                                            点赞数
+                                        </span>
+                                    </li>
+                                        -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="pagination px-3 pagination-number">
+            <a href='http://heijing.chuangzaoshi.com/' class='current pagination-num'>1</a><a href='http://heijing.chuangzaoshi.com/page/2' class='pagination-num'>2</a><a href="http://heijing.chuangzaoshi.com/page/2" class="pagination-num"><i class="czs-angle-right-l"></i></a>
+        </div>
+    </div>
+    <div class="friend-link p-3 mt-6">
+        <strong class='pull-left mr-3'>友情链接<span class="hidden-xs">：</span></strong><li><a href="https://www.behance.net/" target="_blank"><span>Behance</span></a></li>
+        <li><a href="https://dribbble.com/" target="_blank"><span>Dribbble</span></a></li>
+        <li><a href="http://chuangzaoshi.com/" target="_blank"><span>创造狮导航</span></a></li>
+        <li><a href="http://chuangzaoshi.com/icon/" target="_blank"><span>草莓图标库</span></a></li>
+        <li><a href="http://heitang.chuangzaoshi.com/" target="_blank"><span>黑糖主题</span></a></li>
+    </div>
+</main>
+<script>
+    function ArticleType(id) {
+        var type = document.getElementsByClassName("type");
+        for (var n = 0; n < type.length; n++) {
+            document.getElementsByClassName("type")[n].className = 'type';
+        }
+        document.getElementById(id).className += ' active';
+    }
+</script>

@@ -1,0 +1,59 @@
+﻿@using Ast.Models;
+@{
+    ViewBag.Title = "个人中心主页";
+    Layout = "~/Views/PersonalCenter/_Layout.cshtml";
+    var member = ViewBag.member as MemberList;
+}
+<div class="col center-part">
+    <header class="bg-light lter b-b wrapper-md">
+        <!--<h1 class="m-n font-thin h3 text-black l-h">友人C</h1>
+        <small class="text-muted letterspacing indexWords">我心中已经听到来自远方的呼唤，再不需要回过头去关心身后的种种是非。</small>-->
+        <span class="thumb-lg w-auto-folded avatar m-t-sm">
+            <img src="~/Content/static/picture/414908425.jpeg" class="img-full">&nbsp;&nbsp;&nbsp;>
+        </span>
+    </header>
+    <div class="wrapper-md" id="post-panel">
+        <div class="blog-post">
+            <div class="panel">
+                <div class="index-post-img">
+                    <a href="https://www.ihewro.com/archives/489/">
+                        <div class="item-thumb lazy" style="background-image: url(https://www.ihewro.com/usr/uploads/2018/06/1408876085.jpg!/fw/1200); display: block;"></div>
+                    </a>
+                </div><div class="post-meta wrapper-lg">
+                    <h2 class="m-t-none index-post-title"><a href="https://www.ihewro.com/archives/489/"><span class="label text-base bg-danger pull-left m-t-xs m-r-xs" style="margin-top:  4px;">置顶</span>handsome —— 一如少年般模样</a></h2><p class="summary">
+                        V4.4.1 | 主题简介
+                        在复杂中，保持简洁。
+                        如你所见，这是一款花费很长时间才得以完成的主题。
+                        在功能...
+                    </p><div class="line line-lg b-b b-light"></div>
+                    <div class="text-muted post-item-foot-icon">
+                        <i class="fontello fontello-user text-muted"></i><span class="m-r-sm">&nbsp;<a href="https://www.ihewro.com/author/1/">友人C&nbsp;</a></span>
+                        <i class="fontello fontello-clock-o text-muted"></i><span class="m-r-sm">&nbsp;2016 年 12 月 05 日</span><a href="https://www.ihewro.com/archives/489/#comments" class="m-l-sm"><i class="iconfont icon-comments-o text-muted"></i>&nbsp;1090 条评论</a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-small">
+                <div class="index-post-img-small post-feature index-img-small">
+                    <a href="https://www.ihewro.com/archives/830/">
+                        <div class="item-thumb-small lazy" data-original="https://www.ihewro.com/usr/uploads/2018/07/670035720.jpg!/fw/500" style="background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxMzggNzkuMTU5ODI0LCAyMDE2LzA5LzE0LTAxOjA5OjAxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+IEmuOgAAAA1JREFUCJljePfx038ACXMD0ZVlJAYAAAAASUVORK5CYII=)"></div>
+                    </a>
+                </div><div class="post-meta wrapper-lg">
+                    <h2 class="m-t-none index-post-title"><a href="https://www.ihewro.com/archives/830/">我们别时与见时不同</a></h2><p class="summary">
+                        0.
+                        生日前，总想写的什么。
+                        这些天来一直想写点什么。
+                        一会儿想写一封给...
+                    </p><div class="line line-lg b-b b-light"></div>
+                    <div class="text-muted post-item-foot-icon">
+                        <i class="fontello fontello-user text-muted"></i><span class="m-r-sm">&nbsp;<a href="https://www.ihewro.com/author/1/">友人C&nbsp;</a></span>
+                        <i class="fontello fontello-clock-o text-muted"></i><span class="m-r-sm">&nbsp;2018 年 07 月 30 日</span><a href="https://www.ihewro.com/archives/830/#comments" class="m-l-sm"><i class="iconfont icon-comments-o text-muted"></i>&nbsp;12 条评论</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="text-center m-t-lg m-b-lg" role="navigation">
+            <ol class="page-navigator"><li class="current"><a href="https://www.ihewro.com/page/1/">1</a></li><li><a href="https://www.ihewro.com/page/2/">2</a></li><li><a href="https://www.ihewro.com/page/3/">3</a></li><li><a href="https://www.ihewro.com/page/4/">4</a></li><li><span>...</span></li><li><a href="https://www.ihewro.com/page/25/">25</a></li><li class="next"><a href="https://www.ihewro.com/page/2/"><i class="fontello fontello-chevron-right"></i></a></li></ol>
+        </nav>
+    </div>
+</div>
+

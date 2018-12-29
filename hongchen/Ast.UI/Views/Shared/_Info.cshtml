@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="~/Content/layuiadmin/layui/css/layui.css" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/adder.main.css" rel="stylesheet" />
+    <link href="~/Content/css/jquery.step.css" rel="stylesheet" />
+    <link href="~/Content/css/formSelects-v4.css" rel="stylesheet" />
+    <link href="~/Content/lib/Toastr/toastr.min.css" rel="stylesheet" />
+    @RenderSection("css", required: false)
+    <style>
+        .layui-table-body {
+            overflow: hidden;
+        }
+
+        .layui-table-body {
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body style="padding:5px 5px 0px 10px">
+    @RenderBody()
+    <script src="~/Content/js/jquery-2.2.4.min.js"></script>
+    <script src="~/Content/layuiadmin/layui/layui.js"></script>
+    <script src="~/Content/js/jquery.step.min.js"></script>
+    <script src="~/Content/lib/Toastr/toastr.min.js"></script>
+    <script src="~/Content/js/adder.main.js"></script>
+    <script>
+        $("body").keydown(function () {
+            if (event.keyCode == "13") {
+                init();
+            }
+        });
+        function Closewin() {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        }
+        adder.loadSelect();
+    </script>
+    @RenderSection("js", required: false)
+</body>
+</html>
+

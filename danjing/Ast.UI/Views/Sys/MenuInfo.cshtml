@@ -1,0 +1,100 @@
+﻿@using Ast.Models;
+@{
+    Layout = "~/Views/Shared/_Info.cshtml";
+    var FuncList = ViewBag.Func as IList<OTAFuncMenus>;
+    var list = ViewBag.list as IList<OTAMenu>;
+
+}
+@model OTAMenu
+
+<form class="layui-form" lay-filter="layuiform">
+    <blockquote class="layui-elem-quote layui-elem-black">
+        <a class="layui-btn layui-btn-xs layui-btn-black">菜单信息</a>
+    </blockquote>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>菜单编号</label>
+        <div class="layui-input-inline">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="text" name="Code" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.Code">
+        </div>
+        <label class="layui-form-label">上级菜单</label>
+        <div class="layui-input-inline">
+            <select id="ParentId" name="ParentId">
+                @foreach (var item in list)
+                {
+                    <option value="@item.Id">@item.MenuName</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label"><i class="layui-icon layui-icon-star-fill" style="color:red"></i>菜单名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="MenuName" required lay-verify="required" autocomplete="off" class="layui-input" value="@Model.MenuName">
+        </div>
+        <label class="layui-form-label">菜单URL</label>
+        <div class="layui-input-inline">
+            <input type="text" name="MenuUrl" autocomplete="off" class="layui-input" value="@Model.MenuUrl" placeholder="/Customer/Index">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">菜单图标</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Icon" autocomplete="off" class="layui-input" value="@Model.Icon">
+        </div>
+        <label class="layui-form-label">排序</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Sort" autocomplete="off" class="layui-input" value="@Model.Sort">
+        </div>
+    </div>
+    <blockquote class="layui-elem-quote layui-elem-black">
+        <a class="layui-btn layui-btn-xs layui-btn-black">菜单功能</a>
+    </blockquote>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="hidden" name="MenuFunction" value="@Model.MenuFunction" />
+            @foreach (var item in FuncList)
+            {
+                <input type="checkbox" value="@item.Id" name="Func" title="@item.FuncName" />
+            }
+        </div>
+    </div>
+    <hr>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+        </div>
+    </div>
+</form>
+
+@section js{
+    <script>
+        $(function () {
+            adder.LayDate();
+            $("#ParentId").val(@Model.ParentId);
+            var m = "@Model.MenuFunction";
+            var arr = m.split(',');
+            $(arr).each(function (x, y) {
+                $("input[name='Func'][value='" + y + "']").attr("checked", true);
+            });
+            layui.use(['form'], function () {
+                var form = layui.form;
+                form.on('submit(form)', function (data) {
+                    var cheval = "";
+                    $("input[name='Func']:checked").each(function (i) {
+                        cheval += $(this).val() + ",";
+                    });
+                    data.field.MenuFunction = cheval.substring(0, cheval.length - 1);
+                    $.post('/Sys/MenuUpdate', data.field, function (res) {
+                        window.parent.init();
+                        window.parent.adder.msg(1);
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    });
+                    return false;
+                });
+            });
+        });
+    </script>
+}
+

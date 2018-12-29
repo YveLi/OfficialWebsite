@@ -1,0 +1,79 @@
+﻿@using Ast.Models;
+@using Ast.Models.ViewModels;
+@{
+    Layout = "~/Views/PersonalCenter/_Layout.cshtml";
+    var member = ViewBag.member as MemberList;
+}
+@model  PageList<Ast.Models.ClubPostList>
+
+<div class="col center-part">
+    <header class="bg-light lter b-b wrapper-md">
+        <!--<h1 class="m-n font-thin h3 text-black l-h">友人C</h1>
+        <small class="text-muted letterspacing indexWords">我心中已经听到来自远方的呼唤，再不需要回过头去关心身后的种种是非。</small>-->
+        <span class="thumb-lg w-auto-folded avatar m-t-sm">
+            <img src="~/Content/static/picture/414908425.jpeg" class="img-full">&nbsp;&nbsp;&nbsp;>
+        </span>
+    </header>
+    <div class="wrapper-md">
+        <div class="blog-post" id="post-panel">
+            @if (Model.count > 0)
+            {
+                foreach (var item in Model.datalist)
+                {
+                    <div class="panel-small">
+                        <div class="index-post-img-small post-feature index-img-small">
+                            <a href="/Forum/PostDetail?id=@item.Id">
+                                <div class="item-thumb-small lazy" data-original="https://www.ihewro.com/usr/uploads/2018/07/670035720.jpg!/fw/500" style="background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxMzggNzkuMTU5ODI0LCAyMDE2LzA5LzE0LTAxOjA5OjAxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+IEmuOgAAAA1JREFUCJljePfx038ACXMD0ZVlJAYAAAAASUVORK5CYII=)"></div>
+                            </a>
+                        </div>
+                        <div class="post-meta wrapper-lg">
+                            <h2 class="m-t-none index-post-title"><a href="/Forum/PostDetail?id=@item.Id">@item.Title</a></h2>
+                            <p class="summary">
+                                @item.PostContent
+                            </p><div class="line line-lg b-b b-light"></div>
+                            <div class="text-muted post-item-foot-icon">
+                                <i class="fontello fontello-clock-o text-muted"></i><span class="m-r-sm">&nbsp;@item.AddTime.ToString("yyyy-MM-dd HH:mm:ss")</span><a href="/Forum/PostDetail?id=@item.Id#comments" class="m-l-sm"><i class="iconfont icon-comments-o text-muted"></i>&nbsp;@item.ReplyCount 条评论</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="panel-small">
+                    暂无数据
+                </div>
+            }
+            @if (Model.count > 10)
+            {
+                <div id="pageHandle" style="text-align: center;"></div>
+            }
+        </div>
+    </div>
+</div>
+
+@section js{
+    <script>
+        $(function () {
+            layui.use(["laypage"], function () {
+                var laypage = layui.laypage, layer = layui.layer;
+                laypage.render({
+                    elem: 'pageHandle'
+                    , count: '@(Model.count)'
+                    ,limit: 10
+                    , first: '首页'
+                    , last: '尾页'
+                    , theme: "#171717"
+                    , prev: '上一页'
+                    , next: '下一页'
+                    , jump: function (obj, first) {
+                        var curr = obj.curr;
+                        if (!first) {
+                            location.href = "/PersonalCenter/myPost?page=" + curr;
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,60 @@
+﻿@using Ast.Models;
+@{
+    Layout = "~/Views/Shared/_Info.cshtml";
+}
+@model OTADepartment
+<form class="layui-form" lay-filter="layuiform">
+    <div class="layui-form-item">
+        <label class="layui-form-label col-sm-3">简称</label>
+        <div class="layui-input-inline">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" id="ParentId" value="@Model.ParentId" />
+            <input type="text" name="PostName" required lay-verify=" required" placeholder="请输入部门名称" autocomplete="off" class="layui-input" value="@Model.PostName">
+        </div>
+        <label class="layui-form-label">上级部门</label>
+        <div class="layui-input-inline">
+            <select name="ParentId" xm-select="ParentId" xm-select-skin="normal" xm-select-height="38px" xm-select-search="" xm-select-radio></select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">全称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="FullName" placeholder="全称" autocomplete="off" class="layui-input" value="@Model.FullName">
+        </div>
+        <label class="layui-form-label">代码</label>
+        <div class="layui-input-inline">
+            <input type="text" name="PathCode" autocomplete="off" class="layui-input" value="@Model.PathCode">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <textarea type="text" name="Memo" class="layui-textarea">@Model.Memo</textarea>
+        </div>
+    </div>
+    <hr>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="form">立即提交</button>
+        </div>
+    </div>
+
+</form>
+
+@section js{
+    <script>
+        $(function () {
+            layui.use('formSelects', function () {
+                var formSelects = layui.formSelects;
+                formSelects.config('ParentId', {
+                    searchUrl: '/Users/GetDepartData',
+                    success: function (id, url, searchVal, result) {
+                        formSelects.value('ParentId', [@Model.ParentId]);
+                    }
+                });
+            });
+            adder.save({ url: "/Users/DepartUpdate" });
+        });
+    </script>
+}
+

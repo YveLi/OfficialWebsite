@@ -1,0 +1,126 @@
+﻿@using Ast.Models;
+@using Ast.Web.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ForumLayout.cshtml";
+    var postList = ViewBag.postmodel as IList<PostModel>;
+    var postType = ViewBag.postType as IList<ClubPostType>;
+}
+<div class="col center-part">
+    <div class="wrapper-md" id="post-panel">
+        <div class="blog-post">
+            @if (postList != null)
+            {
+                foreach (var item in postList)
+                {
+                    <div class="panel-small">
+                        <div class="index-post-img-small post-feature index-img-small">
+                            <a href="/Forum/PostDetail?id=@item.postmd.Id">
+                                <div class="item-thumb-small lazy" data-original="https://www.ihewro.com/usr/uploads/2018/07/670035720.jpg!/fw/500" style="background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxMzggNzkuMTU5ODI0LCAyMDE2LzA5LzE0LTAxOjA5OjAxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+IEmuOgAAAA1JREFUCJljePfx038ACXMD0ZVlJAYAAAAASUVORK5CYII=)"></div>
+                            </a>
+                        </div>
+                        <div class="post-meta wrapper-lg">
+                            <h2 class="m-t-none index-post-title"><a href="/Forum/PostDetail?id=@item.postmd.Id">@item.postmd.Title</a></h2><p class="summary">
+                                生日前，总想写的什么。
+                                这些天来一直想写点什么。
+                                一会儿想写一封给...
+                            </p><div class="line line-lg b-b b-light"></div>
+                            <div class="text-muted post-item-foot-icon">
+                                <i class="fontello fontello-user text-muted"></i><span class="m-r-sm">&nbsp;<a href="">@item.membermd.Name </a></span>
+                                <i class="fontello fontello-clock-o text-muted"></i><span class="m-r-sm">&nbsp;@item.postmd.AddTime</span><a href="" class="m-l-sm"><i class="iconfont icon-comments-o text-muted"></i>&nbsp;@item.postmd.ReplyCount 条评论</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <nav class="text-center m-t-lg m-b-lg" role="navigation">
+            <ol class="page-navigator"><li class="current"><a href="https://www.ihewro.com/page/1/">1</a></li><li><a href="https://www.ihewro.com/page/2/">2</a></li><li><a href="https://www.ihewro.com/page/3/">3</a></li><li><a href="https://www.ihewro.com/page/4/">4</a></li><li><span>...</span></li><li><a href="https://www.ihewro.com/page/25/">25</a></li><li class="next"><a href="https://www.ihewro.com/page/2/"><i class="fontello fontello-chevron-right"></i></a></li></ol>
+        </nav>
+        <!--输入框-->
+        <div style="width:100%">
+            <div class="moudle-card">
+                <div class="page-form layui-text">
+                    <div class="layui-form">
+                        <form id="form">
+                            @Html.AntiForgeryToken()
+                            <div class="layui-form-item">
+                                <input type="text" class="layui-input" placeholder="标题" name="Title" id="Title" lay-verify="required" />
+                            </div>
+                            <div class="layui-form-item">
+                                <select name="PostTypeId">
+                                    @foreach (ClubPostType item in postType)
+                                    {
+                                        <option value="@item.Id">@item.TypeName</option>
+                                    }
+                                </select>
+                            </div>
+                            <!--
+                            <div class="layui-form-item">
+                                <select name="Reward">
+                                    <option value="5">5星币</option>
+                                    <option value="20">20星币</option>
+                                    <option value="50">50星币</option>
+                                    <option value="100">100星币</option>
+                                </select>
+                            </div>-->
+                            <div class="layui-form-item">
+                                <textarea class="layui-textarea" name="PostContent" id="PostContent" placeholder="请输入帖子内容"></textarea>
+                            </div>
+                            <div class="layui-form-item">
+                                <button class="layui-btn zb-btn" lay-filter="postadd" lay-submit> 发表 </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section js{
+    <script>
+        $(function () {
+            layui.use(['form', 'layedit'], function () {
+                var layedit = layui.layedit;
+                var form = layui.form;
+                layedit.set({
+                    uploadImage: {
+                        url: "/FileUpload/FileRecive" //接口url
+                        , type: "post"//默认post
+                    }
+                });
+                var editIndex = layedit.build('PostContent'); //建立编辑器,放在所有配置后
+                form.on('submit(postadd)', function (data) {
+                    var contents = layedit.getContent(editIndex);
+                    if (contents.length < 15) {
+                        layer.msg('内容不少于15个字符哦', { icon: 2 });
+                        return false;
+                    };
+                    if (data.field.Title.length < 5) {
+                        layer.msg('标题不少于5个字符哦', { icon: 2 });
+                        return false;
+                    };
+                    data.field.PostContent = contents;
+                    $.ajax({
+                        url: "/Forum/Add",
+                        data: data.field,
+                        type: "post",
+                        success: function (res) {
+                            if (res.success) {
+                                layer.msg(res.msg, { icon: 1, time: 1000 }, function () {
+                                    location.href = "/Forum?typeId=" + data.field.PostTypeId
+                                });
+                            } else {
+                                layer.msg(res.msg, { icon: 2, time: 1000 });
+                            }
+                        }
+                    });
+                    return false;
+                });
+            });
+        });
+    </script>
+}
+
+
+

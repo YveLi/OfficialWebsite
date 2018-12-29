@@ -1,0 +1,10 @@
+D:\Project\Ast\Ast.IBll\bin\Debug\Ast.IBll.dll
+D:\Project\Ast\Ast.IBll\bin\Debug\Ast.IBll.pdb
+D:\Project\Ast\Ast.IBll\bin\Debug\Ast.Models.dll
+D:\Project\Ast\Ast.IBll\bin\Debug\SqlSugar.dll
+D:\Project\Ast\Ast.IBll\bin\Debug\Ast.Models.pdb
+D:\Project\Ast\Ast.IBll\obj\Debug\Ast.IBll.csprojAssemblyReference.cache
+D:\Project\Ast\Ast.IBll\obj\Debug\Ast.IBll.csproj.CoreCompileInputs.cache
+D:\Project\Ast\Ast.IBll\obj\Debug\Ast.IBll.csproj.CopyComplete
+D:\Project\Ast\Ast.IBll\obj\Debug\Ast.IBll.dll
+D:\Project\Ast\Ast.IBll\obj\Debug\Ast.IBll.pdb
